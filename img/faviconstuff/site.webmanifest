@@ -3,13 +3,13 @@
   "short_name": "Detective Marty",
   "icons": [
     {
-      "src": "/img/faviconstuff/web-app-manifest-192x192.png",
+      "src": "detectivemarty/img/faviconstuff/web-app-manifest-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "/img/faviconstuff/web-app-manifest-512x512.png",
+      "src": "detectivemarty/img/faviconstuff/web-app-manifest-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
