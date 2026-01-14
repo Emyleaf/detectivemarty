@@ -140,7 +140,7 @@ body {
 }
 
 .logo {
-  animation: logo-pulse 3s ease-in-out !important;
+  animation: logo-pulse 1.5s ease-in-out !important;
   transition: filter 0.2s;
 }
 
@@ -155,5 +155,52 @@ body {
 
 .buttonmenu {
     margin-bottom: 1em;
-    animation: logo-pulse 3s ease-in-out !important;
+    animation: logo-pulse 1.5s ease-in-out !important;
+}
+
+.hidden {
+    display: none;
+}
+
+.slide-out-left {
+    animation: slideOutLeft 0.4s ease-in forwards;
+}
+
+@keyframes slideOutLeft {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(-100vw);
+        opacity: 0;
+    }
+}
+
+.slide-in-right {
+    animation: slideInRight 0.4s ease-out forwards;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(-100vw);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.transition-out {
+    animation: fadeOut 0.8s ease-out forwards;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
 }
