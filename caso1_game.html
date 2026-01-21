@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="Detective Marty">
+    <meta property="og:description" content="on the case!">
+    <meta property="og:image" content="https://emyleaf.github.io/detectivemarty/img/faviconstuff/icon.jpeg">
+    <meta property="og:url" content="https://emyleaf.github.io/detectivemarty">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="og:type" content="website">
+    <meta name="twitter:image" content="https://emyleaf.github.io/detectivemarty/img/faviconstuff/icon.jpeg">
+
+    <link rel="icon" type="image/png" href="./img/faviconstuff/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="./img/faviconstuff/favicon.svg" />
+    <link rel="shortcut icon" href="./img/faviconstuff/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./img/faviconstuff/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Detective Marty" />
+    <link rel="manifest" href="./img/faviconstuff/site.webmanifest" />
+
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IM+Fell+DW+Pica:ital@0;1&display=swap" rel="stylesheet">
+
+    <style>
+        #iphone-keypad {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+        #phone-display {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-weight: 300;
+        }
+        .phone-key span {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+        .phone-key > div {
+            background-color: #141414 !important;
+        }
+        .phone-key > div:hover {
+            background-color: #2a2a2a !important;
+        }
+    </style>
+
+    <title>Detective Marty</title>
+</head>
+<body>
+
+    <div class="background_image"></div>
+
+    <section  class="section centro transition-fade">
+        
+        <div class="has-text-centered" id="logo-container">
+            <figure class="image mamalogo centro zoom-in-out-box">
+                <a href="index.html"><img src="./img/logo_primocaso.png" alt="Placeholder image"></a>
+            </figure>
+        </div>
+
+        <div class="content-wrapper" id="content-wrapper">
+            <div class="buttons-section">
+                <a id="sospettati_button"><img class="buttonmenu" src="./img/sospettati.png" alt="" style="width: 12em; height: auto; margin-top: 5em;"></a>
+                <a id="gallo_button"><img class="buttonmenu" src="./img/gallo.png" alt="" style="width: 12em; height: auto;"></a>
+                <button class="button is-large" id="iphone_button" style="font-size: 3rem; background-color: transparent; border: none; cursor: pointer;">
+                    📱
+                </button>
+            </div>
+            
+            <div class="character-section">
+                <figure class="image centro marti zoom-in-out-box" style="width: 15em;">
+                    <img id="hellomama-image" src="./img/marty.png" alt="mama1">
+                </figure>
+            </div>
+        </div>
+
+        <div class="hidden bacheca" id="portamoduli-container" style="position: relative; display: inline-block;">
+            <img src="./img/portamoduli.png" alt="" style="display: block; width: 100%; max-width: 600px;">
+            
+            <div class="columns is-multiline is-mobile is-variable is-1" style="position: absolute; top: 15%; left: 11%; width: 80%; padding: 1rem;">
+                <div class="column is-half" data-character="anna">
+                    <figure class="image is-80x80">
+                        <img class="is-rounded" src="./img/anna.png" />
+                    </figure>
+                </div>
+                <div class="column is-half" data-character="elena">
+                    <figure class="image is-80x80">
+                        <img class="is-rounded" src="./img/elena.png" />
+                    </figure>
+                </div>
+                <div class="column is-half" data-character="giotto">
+                    <figure class="image is-80x80">
+                        <img class="is-rounded" src="./img/giotto.png" />
+                    </figure>
+                </div>
+                <div class="column is-half" data-character="james">
+                    <figure class="image is-80x80">
+                        <img class="is-rounded" src="./img/james.png" />
+                    </figure>
+                </div>
+                <div class="column is-half" data-character="lucas">
+                    <figure class="image is-80x80">
+                        <img class="is-rounded" src="./img/lucas.png" />
+                    </figure>
+                </div>
+                <div class="column is-half" data-character="marie">
+                    <figure class="image is-80x80">
+                        <img class="is-rounded" src="./img/marie.png" />
+                    </figure>
+                </div>
+                <div class="column is-half" data-character="marco">
+                    <figure class="image is-80x80">
+                        <img class="is-rounded" src="./img/marco.png" />
+                    </figure>
+                </div>
+                <div class="column is-half" data-character="sofia">
+                    <figure class="image is-80x80">
+                        <img class="is-rounded" src="./img/sofia.png" />
+                    </figure>
+                </div>
+            </div>
+        </div>
+
+        <div class="hidden" id="back-button-container">
+            <button class="button is-small is-rounded" id="back-button" style="left: 50%; transform: translateX(-50%); z-index: 10; background: transparent; border: none;">
+                <span class="icon is-large">
+                    <span style="font-size: 4rem; color: bisque;">←</span>
+                </span>
+            </button>
+        </div>
+
+        <!-- iPhone Keypad -->
+        <div class="hidden" id="iphone-keypad" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #000; z-index: 1000; display: flex; flex-direction: column; justify-content: space-between; padding: 2rem 1rem;">
+            <div style="flex: 1; display: flex; flex-direction: column; justify-content: flex-start; padding-top: 2rem;">
+                <div style="color: #fcfcfc; font-size: 0.9rem; padding: 0 1rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        <span>22:43</span>
+                        <span>📶4G 🔋</span>
+                    </div>
+                </div>
+                <div id="phone-display" style="color: #fcfcfc; font-size: 3rem; text-align: center; padding: 2rem 1rem; height: 4rem; display: flex; align-items: center; justify-content: center;"></div>
+            </div>
+            
+            <div style="padding: 0 1.5rem 1rem;">
+                <div class="columns is-mobile is-multiline is-centered" style="margin: 0;">
+                    <div class="column is-4 has-text-centered" data-key="1">
+                        <div style="width: 75px; height: 75px; margin: 0.5rem auto; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; background-color: rgb(20, 20, 20);" class="phone-key">
+                            <span style="color: #fcfcfc; font-size: 2rem; font-weight: 300;">1</span>
+                        </div>
+                    </div>
+                    <div class="column is-4 has-text-centered" data-key="2">
+                        <div style="width: 75px; height: 75px; margin: 0.5rem auto; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; background-color: rgb(20, 20, 20);" class="phone-key">
+                            <span style="color: #fcfcfc; font-size: 2rem; font-weight: 300;">2</span>
+                            <span style="color: #fcfcfc; font-size: 0.6rem; letter-spacing: 0.1rem;">ABC</span>
+                        </div>
+                    </div>
+                    <div class="column is-4 has-text-centered" data-key="3">
+                        <div style="width: 75px; height: 75px; margin: 0.5rem auto; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; background-color: rgb(20, 20, 20);" class="phone-key">
+                            <span style="color: #fcfcfc; font-size: 2rem; font-weight: 300;">3</span>
+                            <span style="color: #fcfcfc; font-size: 0.6rem; letter-spacing: 0.1rem;">DEF</span>
+                        </div>
+                    </div>
+                    <div class="column is-4 has-text-centered" data-key="4">
+                        <div style="width: 75px; height: 75px; margin: 0.5rem auto; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; background-color: rgb(20, 20, 20);" class="phone-key">
+                            <span style="color: #fcfcfc; font-size: 2rem; font-weight: 300;">4</span>
+                            <span style="color: #fcfcfc; font-size: 0.6rem; letter-spacing: 0.1rem;">GHI</span>
+                        </div>
+                    </div>
+                    <div class="column is-4 has-text-centered" data-key="5">
+                        <div style="width: 75px; height: 75px; margin: 0.5rem auto; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; background-color: rgb(20, 20, 20);" class="phone-key">
+                            <span style="color: #fcfcfc; font-size: 2rem; font-weight: 300;">5</span>
+                            <span style="color: #fcfcfc; font-size: 0.6rem; letter-spacing: 0.1rem;">JKL</span>
+                        </div>
+                    </div>
+                    <div class="column is-4 has-text-centered" data-key="6">
+                        <div style="width: 75px; height: 75px; margin: 0.5rem auto; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; background-color: rgb(20, 20, 20);" class="phone-key">
+                            <span style="color: #fcfcfc; font-size: 2rem; font-weight: 300;">6</span>
+                            <span style="color: #fcfcfc; font-size: 0.6rem; letter-spacing: 0.1rem;">MNO</span>
+                        </div>
+                    </div>
+                    <div class="column is-4 has-text-centered" data-key="7">
+                        <div style="width: 75px; height: 75px; margin: 0.5rem auto; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; background-color: rgb(20, 20, 20);" class="phone-key">
+                            <span style="color: #fcfcfc; font-size: 2rem; font-weight: 300;">7</span>
+                            <span style="color: #fcfcfc; font-size: 0.6rem; letter-spacing: 0.1rem;">PQRS</span>
+                        </div>
+                    </div>
+                    <div class="column is-4 has-text-centered" data-key="8">
+                        <div style="width: 75px; height: 75px; margin: 0.5rem auto; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; background-color: rgb(20, 20, 20);" class="phone-key">
+                            <span style="color: #fcfcfc; font-size: 2rem; font-weight: 300;">8</span>
+                            <span style="color: #fcfcfc; font-size: 0.6rem; letter-spacing: 0.1rem;">TUV</span>
+                        </div>
+                    </div>
+                    <div class="column is-4 has-text-centered" data-key="9">
+                        <div style="width: 75px; height: 75px; margin: 0.5rem auto; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; background-color: rgb(20, 20, 20);" class="phone-key">
+                            <span style="color: #fcfcfc; font-size: 2rem; font-weight: 300;">9</span>
+                            <span style="color: #fcfcfc; font-size: 0.6rem; letter-spacing: 0.1rem;">WXYZ</span>
+                        </div>
+                    </div>
+                    <div class="column is-4 has-text-centered" data-key="*">
+                        <div style="width: 75px; height: 75px; margin: 0.5rem auto; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; background-color: rgb(20, 20, 20);" class="phone-key">
+                            <span style="color: #fcfcfc; font-size: 2.5rem; font-weight: 300;">*</span>
+                        </div>
+                    </div>
+                    <div class="column is-4 has-text-centered" data-key="0">
+                        <div style="width: 75px; height: 75px; margin: 0.5rem auto; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; background-color: rgb(20, 20, 20);" class="phone-key">
+                            <span style="color: #fcfcfc; font-size: 2rem; font-weight: 300;">0</span>
+                            <span style="color: #fcfcfc; font-size: 0.8rem;">+</span>
+                        </div>
+                    </div>
+                    <div class="column is-4 has-text-centered" data-key="#">
+                        <div style="width: 75px; height: 75px; margin: 0.5rem auto; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; background-color: rgb(20, 20, 20);" class="phone-key">
+                            <span style="color: #fcfcfc; font-size: 2.5rem; font-weight: 300;">#</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="has-text-centered" style="margin-top: 2rem; position: relative;">
+                    <div style="width: 40px; height: 40px; border-radius: 50%; background-color: #d32f2f; display: flex; align-items: center; justify-content: center; cursor: pointer; position: absolute; left: 50%; transform: translateX(-130px);" id="delete-button">
+                        <span style="color: #fcfcfc; font-size: 1.5rem; font-weight: bold;">x</span>
+                    </div>
+                    <div style="width: 75px; height: 75px; margin: 0 auto; border-radius: 50%; background-color: #34c759; display: flex; align-items: center; justify-content: center; cursor: pointer;" id="call-button">
+                        <img src="./img/call.png" alt="Call" style="width: 80px; height: 80px;">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="has-text-centered" style="padding: 1rem;">
+                <button class="button" id="close-keypad" style="background-color: transparent; color: #fcfcfc; border: none; font-size: 1rem;">Chiudi</button>
+            </div>
+        </div>
+
+        <!-- Modal Popup per i personaggi -->
+        <div class="modal hidden" id="character-modal">
+            <div class="modal-background" id="modal-background" style="background-color: transparent;"></div>
+            <div class="modal-content" style="max-height: 85vh; overflow-y: hidden;">
+                <div class="columns is-centered">
+                    <div class="column is-half">
+                        <div class="is-flex is-flex-direction-column is-align-items-center" style="position: relative;">
+                            <figure class="image is-128x128" style="z-index: 2; margin-bottom: -4.5rem;">
+                                <img id="modal-character-image" src="" alt="" class="is-rounded">
+                            </figure>
+                            <div class="card has-shadow card-shadow-dark" style="width: 100%; z-index: 1; margin-top: 2rem; margin-bottom: 1rem;">
+                                <div class="card-content has-text-centered pt-6 pb-4">
+                                    <p class="title is-4 mb-3" id="modal-character-name"></p>
+                                    <div class="mb-2">
+                                        <audio id="modal-character-movente" controls style="width: 100%;"></audio>
+                                    </div>
+                                    <div class="field is-grouped mt-2">
+                                        <div class="control is-expanded">
+                                            <textarea class="textarea has-fixed-size" id="user-answer" placeholder="Fai una domanda" rows="4"></textarea>
+                                        </div>
+                                        <div class="control" style="align-self: flex-end;">
+                                            <img src="./img/ask.png" alt="Chiedi" id="submit-answer" style="cursor: pointer; width: 100px;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <script src="./js/caso1_game.js"></script>
+
+</body>
+</html>

@@ -19,6 +19,7 @@
     <link rel="manifest" href="./img/faviconstuff/site.webmanifest" />
 
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -32,31 +33,98 @@
 
     <div class="background_image"></div>
 
-    <section  class="section centro transition-fade">
-        
-        <div class="has-text-centered">
-            <figure class="image mamalogo centro logo">
-                <a href="index.html"><img src="./img/logo.png" alt="Placeholder image"></a>
+    <div class="flash-overlay"></div>
+
+    <footer class="footer" style="position: fixed; bottom: -3rem; left: 50%; transform: translateX(-50%); z-index: 500; background: transparent;">
+        <div class="level">
+            <div class="level-right">
+                <div class="level-item">
+                    <a href="caso1_game.html" class="button is-danger is-small">SKIP →</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <section  class="section centro transition-fade" style="margin-bottom: 8rem;">
+
+        <div class="has-text-centered story-container" id="story-container">
+            <figure class="">
+                <img class="fade-in" src="./img/letter.png" alt="portamoduli">
+            </figure>
+            <p class="story-text has-text-weight-medium" id="story-text"></p>
+        </div>
+
+        <div class="columns is-centered mt-6 story-card hidden">
+            <div class="column is-one-third">
+                <div class="is-flex is-flex-direction-column is-align-items-center" style="position: relative;">
+                    <figure class="image is-128x128" style="z-index: 2; margin-bottom: -4.5rem;">
+                        <img src="./img/dialogue gallo.png" alt="Agente Gallo" class="is-rounded">
+                    </figure>
+                    <div class="card has-shadow card-shadow-dark" style="width: 100%; z-index: 1; margin-top: 2rem;">
+                        <div class="card-content has-text-centered pt-6">
+                            <p class="title is-4">Agente Gallo</p>
+                            <p class="mb-4 has-text-weight-normal">Purtroppo Marty non potremmo vedere l'asta, è un evento privato, ma siamo stati invitati al buffet quindi abbuffati pure!</p>
+                        </div>
+                        <footer class="card-footer has-text-centered pb-4 is-flex is-justify-content-center">
+                            <button class="button is-info">LET'S GO!</button>
+                        </footer>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="character-section hidden mt-6 ml-5">
+            <figure class="image centro marti logo" style="width: 15em; margin-top: 4rem;">
+                <img id="hellomama-image" src="./img/gnam.png" alt="mama1">
+                <img id="hellomama-image2" style="display: none;" src="./img/gnam2.png" alt="mama2">
             </figure>
         </div>
 
-        <div class="content-wrapper">
-            <div class="buttons-section">
-                <a href="http://"><img class="buttonmenu" src="./img/casi.png" alt="" style="width: 12em; height: auto; margin-top: 10em;"></a>
-                <a href="http://"><img class="buttonmenu" src="./img/dossier.png" alt="" style="width: 12em; height: auto;"></a>
+        <div id="64" class="element-64 hidden">
+            <p class="has-text-white has-text-weight-normal">Dopo circa 2 ore...</p>
+        </div>
+
+        <div class="columns is-centered mt-6 story-card2 hidden">
+            <div class="column is-one-third">
+                <div class="is-flex is-flex-direction-column is-align-items-center" style="position: relative;">
+                    <figure class="image is-128x128" style="z-index: 2; margin-bottom: -4.5rem;">
+                        <img src="./img/dialogue gallo.png" alt="Agente Gallo" class="is-rounded">
+                    </figure>
+                    <div class="card has-shadow card-shadow-dark" style="width: 100%; z-index: 1; margin-top: 2rem;">
+                        <div class="card-content has-text-centered pt-6">
+                            <p class="title is-4">Agente Gallo</p>
+                            <p class="mb-4 has-text-weight-normal" id="gallo-text-2">Yawn, mi sto addormentando… però è quasi finita, menomale che è andato tutto per il meg…</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            
-            <div class="character-section">
-                <figure class="image centro marti logo" style="width: 15em;">
-                    <img id="hellomama-image" src="./img/marty.png" alt="mama1">
-                    <img id="hellomama-image2" style="display: none;" src="./img/hellomama3.png" alt="mama2">
-                </figure>
-            </div>
+        </div>
+
+        <div class="baloon hidden mt-6 ml-5">
+            <figure style="margin-top: 8rem;">
+                <img src="./img/screambaloon.png" alt="baloon" style="transform: scale(1.5);">
+            </figure>
+        </div>
+
+        <div class="hidden mt-6" id="foto1-container">
+            <figure class="polaroid-frame">
+                <img class="polaroid" src="./img/foto1.png" alt="foto1">
+            </figure>
+        </div>
+
+        <div class="has-text-centered hidden" id="final-content" >
+            <figure class="image mamalogo centro logo" id="logo-figure">
+                <img src="./img/logo.png" alt="Placeholder image">
+            </figure>
+
+            <p class="title is-1 has-text-weight-extrabold is-italic has-text-warning logo hidden mt-6 mb-6 ml-5" id="in-text">in</p>
+
+            <img class="logo hidden" id="caso1-image" src="./img/caso1.png" alt="" style="width: 16em; height: auto;">
         </div>
 
     </section>
 
-    <script src="./js/index.js"></script>
+
+    <script src="./js/caso1.js"></script>
 
 </body>
-</html>

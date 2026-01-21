@@ -1,10 +1,10 @@
-// Funzione per alternare tra le immagini
-let currentImage = 0; // Inizia con la prima immagine
+// Variabili di stato per alternare immagini
+let currentImage = 1;
 
 function toggleImages() {
     const image1 = document.getElementById('hellomama-image');
     const image2 = document.getElementById('hellomama-image2');
-    2
+    
     if (currentImage === 1) {
         image1.style.display = 'none';
         image2.style.display = 'block';
