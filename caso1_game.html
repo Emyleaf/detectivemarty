@@ -63,7 +63,7 @@
         <div class="content-wrapper" id="content-wrapper">
             <div class="buttons-section">
                 <a id="sospettati_button"><img class="buttonmenu" src="./img/sospettati.png" alt="" style="width: 12em; height: auto; margin-top: 5em;"></a>
-                <a id="gallo_button"><img class="buttonmenu" src="./img/gallo.png" alt="" style="width: 12em; height: auto;"></a>
+                <a id="gallo_button" style="cursor: pointer;"><img class="buttonmenu" src="./img/gallo.png" alt="" style="width: 12em; height: auto;"></a>
                 <div style="display: flex; justify-content: center; gap: 2rem;">
                     <a id="iphone_button" style="cursor: pointer;">
                         <img class="buttonmenu" src="./img/phonebutton.png" alt="Phone" style="width: 5em; height: auto;">
@@ -75,8 +75,8 @@
             </div>
             
             <div class="character-section">
-                <figure class="image centro marti zoom-in-out-box" style="width: 15em;">
-                    <img id="hellomama-image" src="./img/marty.png" alt="mama1">
+                <figure class="image centro marti zoom-in-out-box" style="width: 15em; margin-top: 4rem;">
+                    <img id="hellomama-image" src="./img/mmm.png" alt="mama1">
                 </figure>
             </div>
         </div>
@@ -251,6 +251,41 @@
                                         </div>
                                         <div class="control" style="align-self: flex-end;">
                                             <img src="./img/ask.png" alt="Chiedi" id="submit-answer" style="cursor: pointer; width: 100px;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Popup per Gallo -->
+        <div class="modal" id="gallo-modal" style="display: none;">
+            <div class="modal-background" id="gallo-modal-background" style="background-color: transparent;"></div>
+            <div class="modal-content" style="max-height: 85vh; overflow-y: hidden;">
+                <div class="columns is-centered">
+                    <div class="column is-half">
+                        <div class="is-flex is-flex-direction-column is-align-items-center" style="position: relative;">
+                            <figure class="image is-128x128" style="z-index: 2; margin-bottom: -4.5rem;">
+                                <img src="./img/dialogue gallo.png" alt="" class="is-rounded">
+                            </figure>
+                            <div class="card has-shadow card-shadow-dark" style="width: 100%; z-index: 1; margin-top: 2rem; margin-bottom: 1rem;">
+                                <div class="card-content has-text-centered pt-6 pb-4">
+                                    <p class="title is-4 mb-3">Agente Gallo</p>
+                                    <div class="field" style="margin-top: 2rem;">
+                                        <div class="control">
+                                            <button class="button is-medium is-info" id="gallo-option-1" style="margin-bottom: 1rem;">Small talk</button>
+                                        </div>
+                                        <div class="control">
+                                            <button class="button is-medium is-success" id="gallo-option-2" style="margin-bottom: 1rem;">News and gossip</button>
+                                        </div>
+                                        <div class="control">
+                                            <button class="button is-medium is-warning" id="gallo-option-3" style="margin-bottom: 1rem;">Ho bisogno di indizi</button>
+                                        </div>
+                                        <div class="control">
+                                            <button class="button is-medium is-danger" id="gallo-option-4" style="margin-bottom: 1rem;">Torno a lavorare are...</button>
                                         </div>
                                     </div>
                                 </div>

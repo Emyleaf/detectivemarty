@@ -174,10 +174,10 @@ window.addEventListener('load', function() {
                                 // Attiva il typewriter per il testo di Gallo
                                 const galloText2 = document.getElementById('gallo-text-2');
                                 if (galloText2) {
-                                    const text = 'Yawn, mi sto addormentando... però è quasi finita, menomale che è andato tutto per il meg';
-                                    typewriter(galloText2, text, 30, null, function(char, index) {
+                                    const text = 'Yawn, mi sto addormentando… aspettare qua fuori è palloso, però è quasi finita, menomale che è andato tutto per il megl…';
+                                    typewriter(galloText2, text, 40, null, function(char, index) {
                                         // Quando si raggiunge la "g" finale, fade-out del story-card2
-                                        if (char === 'g' && index === text.length - 1) {
+                                        if (char === '…' && index === text.length - 1) {
                                             clearTimeout(currentTimeoutId);
                                             storyCard2.classList.add('transition-out');
                                             setTimeout(function() {
