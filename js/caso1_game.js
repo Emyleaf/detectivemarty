@@ -19,9 +19,11 @@ window.addEventListener('load', function() {
     setInterval(changeImageInSequence, 5000);
 
     const sospettatiButton = document.getElementById('sospettati_button');
+    const incriminaButton = document.getElementById('incrimina_button');
     const galloButton = document.getElementById('gallo_button');
     const backButton = document.getElementById('back-button');
     const backButtonContainer = document.getElementById('back-button-container');
+    const incriminaContainerEl = document.getElementById('incrimina-container');
     
     // Gallo Button functionality
     const galloModal = document.getElementById('gallo-modal');
@@ -203,19 +205,74 @@ window.addEventListener('load', function() {
         });
     }
 
+    if (incriminaButton) {
+        incriminaButton.addEventListener('click', function() {
+            const logoContainer = document.getElementById('logo-container');
+            const contentWrapper = document.getElementById('content-wrapper');
+            const incriminaContainer = document.getElementById('incrimina-container');
+            
+            // Nascondi logo e content-wrapper
+            if (logoContainer) {
+                logoContainer.classList.add('transition-out');
+                setTimeout(function() {
+                    logoContainer.classList.add('hidden');
+                }, 800);
+            }
+            
+            if (contentWrapper) {
+                contentWrapper.classList.add('transition-out');
+                setTimeout(function() {
+                    contentWrapper.classList.add('hidden');
+                }, 800);
+            }
+            
+            // Mostra incrimina dopo il fade-out
+            if (incriminaContainer) {
+                setTimeout(function() {
+                    incriminaContainer.classList.remove('hidden');
+                    incriminaContainer.classList.add('fall-and-bounce');
+                    if (backButtonContainer) {
+                        backButtonContainer.classList.remove('hidden');
+                    }
+                }, 800);
+            }
+        });
+    }
+
+    // Toggle selezione/deselezione dei sospettati nella bacheca "Incrimina"
+    if (incriminaContainerEl) {
+        const incriminaImgs = incriminaContainerEl.querySelectorAll('.image img');
+        incriminaImgs.forEach(function(img) {
+            img.addEventListener('click', function() {
+                img.classList.toggle('selected');
+            });
+        });
+    }
+
     if (backButton) {
         backButton.addEventListener('click', function() {
             const logoContainer = document.getElementById('logo-container');
             const contentWrapper = document.getElementById('content-wrapper');
             const portamoduliContainer = document.getElementById('portamoduli-container');
+            const incriminaContainer = document.getElementById('incrimina-container');
             
-            // Nascondi portamoduli con animazione inversa
-            if (portamoduliContainer) {
+            // Nascondi portamoduli o incrimina con animazione inversa
+            if (!portamoduliContainer.classList.contains('hidden')) {
                 portamoduliContainer.classList.remove('fall-and-bounce');
                 portamoduliContainer.classList.add('rise-and-fade');
                 setTimeout(function() {
                     portamoduliContainer.classList.add('hidden');
                     portamoduliContainer.classList.remove('rise-and-fade');
+                    if (backButtonContainer) {
+                        backButtonContainer.classList.add('hidden');
+                    }
+                }, 1000);
+            } else if (!incriminaContainer.classList.contains('hidden')) {
+                incriminaContainer.classList.remove('fall-and-bounce');
+                incriminaContainer.classList.add('rise-and-fade');
+                setTimeout(function() {
+                    incriminaContainer.classList.add('hidden');
+                    incriminaContainer.classList.remove('rise-and-fade');
                     if (backButtonContainer) {
                         backButtonContainer.classList.add('hidden');
                     }
@@ -273,7 +330,7 @@ window.addEventListener('load', function() {
                 },
                 {
                     keywords: ["franco"],
-                    response: "Franco? Era un uomo terribile, lo sappiamo tutti. Arrogante, prepotente, crudele. Ha rovinato le vite di molte persone. Non mi sorprende che qualcuno l'abbia voluto uccidere."
+                    response: "Franco era un uomo terribile, lo sappiamo tutti. Arrogante, prepotente, crudele. Ha rovinato le vite di molte persone. Non mi sorprende che qualcuno l'abbia voluto uccidere."
                 }
             ]
         },
@@ -315,7 +372,7 @@ window.addEventListener('load', function() {
                 },
                 {
                     keywords: ["franco"],
-                    response: "Franco... era così arrogante. Mi guardava dall'alto in basso, come se non fossi degna di essere qui. L'ho odiato immediatamente, anche se comprendo che non significa che lo volessi morto."
+                    response: "Franco è stato molto scortese con tutti, era proprio un boomer! Non capiva nulla di social e di arte, mi faceva arrabbiare solo a sentirlo parlare!"
                 }
             ]
         },
@@ -356,7 +413,7 @@ window.addEventListener('load', function() {
                 },
                 {
                     keywords: ["franco"],
-                    response: "Franco... Era il capo. Un uomo molto difficile e esigente. Non è stato facile lavorare per lui, specialmente considerando tutto ciò che aveva fatto al padre di James."
+                    response: "Franco era un uomo molto difficile ed esigente. Alcune regole erano imposte da lui, anche se non era l'organizzatore principale. Era molto severo e si impuntava su ogni dettaglio, il che rendeva il lavoro di tutti molto difficile."
                 }
             ]
         },
@@ -406,7 +463,7 @@ window.addEventListener('load', function() {
                 },
                 {
                     keywords: ["franco"],
-                    response: "Franco... *Oh my*, era un vero *bastardo*! Mi guardava con disprezzo, come se fossi un *loser*. Mi ha ricordato tanto quello che ha fatto a mio padre. *I hated him so much*!"
+                    response: "Franco mi guardava con disprezzo, come se fossi un *loser*. Non ho mai avuto rancore per lui, gli ho offerto il miglior buffet possibile, ma lui non era mai soddisfatto."
                 }
             ]
         },
@@ -452,7 +509,7 @@ window.addEventListener('load', function() {
                 },
                 {
                     keywords: ["franco"],
-                    response: "Franco? Quel bastardo mi ha umiliato pubblicamente in diretta, mi ha distrutto la carriera per uno scherzo crudele. Lo odiavo con tutto il cuore. Qualcuno doveva fermarlo."
+                    response: "Franco? Qualcuno doveva fermarlo. Era un uomo crudele, arrogante e prepotente. Ha rovinato la vita di molte persone, me compreso. Non mi sorprende che qualcuno l'abbia ucciso."
                 }
             ]
         },
@@ -490,7 +547,7 @@ window.addEventListener('load', function() {
                 },
                 {
                     keywords: ["franco"],
-                    response: "Franco era il mio capo. Mi aveva affidato gli eventi più importanti, ma poi mi metteva sempre sotto pressione con le scadenze e i dettagli. Mi controllava continuamente, come se non mi fidassi. Era esasperante lavorare con lui."
+                    response: "Franco era mio marito. Mi controllava continuamente, come se non si fidasse di me. Mi umiliava in pubblico, soprattutto quando era ubriaco, però mi sono sempre sentita legata a lui, nonostante tutto. Non meritava di morire così. Trovate il colpevole, per favore."
                 }
             ]
         },
@@ -524,7 +581,7 @@ window.addEventListener('load', function() {
                 },
                 {
                     keywords: ["franco"],
-                    response: "Franco era il mio socio nei progetti più importanti, ma era un uomo impossibile da gestire. Mi metteva sotto pressione costante con le scadenze, i dettagli, i numeri. Non si contentava mai di niente. Mi pressava sui debiti, sui risultati. Era un incubo lavorare con lui."
+                    response: "Franco è sempre stato molto importante per queste aste, portava molta reach, ma era un uomo impossibile da gestire. Mi metteva sotto pressione costantemente, voleva che fosse tutto come diceva lui, altrimenti se ne sarebbe andato. Era un incubo lavorare con lui, mi sentivo ricattato ogni volta."
                 },
                 {
                     keywords: ["sofia", "caravaggio"],
@@ -571,6 +628,10 @@ window.addEventListener('load', function() {
                 {
                     keywords: ["marco", "munch"],
                     response: "Marco è l'organizzatore, ho chiesto se potevo esserci anche io per quest'asta e mi ha accolto volentieri. Era molto nervoso, continuava a controllare che tutto fosse perfetto, poveretto."
+                },
+                {
+                    keywords: ["franco"],
+                    response: "Ero una giornalista che stava indagando su un giro di opere d'arte false e scomparse, e lui si è offerto volontario per un'intervista. Durante l'intervista mi ha umiliato in diretta, facendomi passare per una pazza. Ho perso il lavoro e la reputazione a causa sua. Non posso dire che mi dispiace per la sua morte, ma non sono stata io a farlo."
                 }
             ]
         }
