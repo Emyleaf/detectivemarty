@@ -24,6 +24,8 @@ window.addEventListener('load', function() {
     const backButton = document.getElementById('back-button');
     const backButtonContainer = document.getElementById('back-button-container');
     const incriminaContainerEl = document.getElementById('incrimina-container');
+    const incriminaActions = document.getElementById('incrimina-actions');
+    const confirmIncriminaButton = document.getElementById('confirm-incrimina');
     
     // Gallo Button functionality
     const galloModal = document.getElementById('gallo-modal');
@@ -234,6 +236,9 @@ window.addEventListener('load', function() {
                     if (backButtonContainer) {
                         backButtonContainer.classList.remove('hidden');
                     }
+                    if (incriminaActions) {
+                        incriminaActions.classList.remove('hidden');
+                    }
                 }, 800);
             }
         });
@@ -245,7 +250,76 @@ window.addEventListener('load', function() {
         incriminaImgs.forEach(function(img) {
             img.addEventListener('click', function() {
                 img.classList.toggle('selected');
+                updateConfirmIncriminaState();
             });
+        });
+    }
+
+    // Verifica selezione corretta per "Incrimina"
+    const CORRECT_SUSPECTS = ['giotto', 'marie'];
+
+    function getSelectedSuspects() {
+        if (!incriminaContainerEl) return [];
+        const selectedImgs = incriminaContainerEl.querySelectorAll('.image img.selected');
+        return Array.from(selectedImgs).map(img => {
+            const src = img.getAttribute('src') || '';
+            const match = src.match(/\/img\/([a-z]+)\.png$/i);
+            return match ? match[1].toLowerCase() : null;
+        }).filter(Boolean);
+    }
+
+    function arraysEqualAsSet(a, b) {
+        if (a.length !== b.length) return false;
+        const setA = new Set(a);
+        for (const item of b) {
+            if (!setA.has(item)) return false;
+        }
+        return true;
+    }
+
+    function updateConfirmIncriminaState() {
+        if (!confirmIncriminaButton) return;
+        const hasSelection = getSelectedSuspects().length > 0;
+        confirmIncriminaButton.disabled = !hasSelection;
+    }
+
+    updateConfirmIncriminaState();
+
+    if (confirmIncriminaButton) {
+        confirmIncriminaButton.addEventListener('click', function() {
+            const selected = getSelectedSuspects();
+
+            if (selected.length === 0) {
+                Swal.fire({
+                    imageUrl: './img/sad.png',
+                    imageWidth: 150,
+                    imageAlt: 'Selezione vuota',
+                    title: 'Nessuno selezionato',
+                    text: 'Seleziona uno o più sospettati.',
+                    confirmButtonColor: '#dc3545'
+                });
+                return;
+            }
+
+            if (arraysEqualAsSet(selected, CORRECT_SUSPECTS)) {
+                Swal.fire({
+                    imageUrl: './img/yeah.png',
+                    imageWidth: 150,
+                    imageAlt: 'Selezione corretta',
+                    title: 'Ottimo lavoro!',
+                    text: 'Hai incriminato i sospettati giusti.',
+                    confirmButtonColor: '#28a745'
+                });
+            } else {
+                Swal.fire({
+                    imageUrl: './img/sad.png',
+                    imageWidth: 150,
+                    imageAlt: 'Selezione errata',
+                    title: 'Mh, non torna…',
+                    text: 'Questi non sembrano i colpevoli. Riprova.',
+                    confirmButtonColor: '#dc3545'
+                });
+            }
         });
     }
 
@@ -275,6 +349,9 @@ window.addEventListener('load', function() {
                     incriminaContainer.classList.remove('rise-and-fade');
                     if (backButtonContainer) {
                         backButtonContainer.classList.add('hidden');
+                    }
+                    if (incriminaActions) {
+                        incriminaActions.classList.add('hidden');
                     }
                 }, 1000);
             }
