@@ -190,6 +190,13 @@ window.addEventListener('load', function() {
                                                 if (baloon) {
                                                     baloon.classList.remove('hidden');
                                                     baloon.classList.add('turbulent-flash');
+                                                    
+                                                    // Riproduci scream.mp3
+                                                    const screamAudio = new Audio('./audio/scream.mp3');
+                                                    screamAudio.play().catch(function(err) {
+                                                        console.log('Errore riproduzione audio:', err);
+                                                    });
+                                                    
                                                     // Attiva il flash overlay
                                                     if (flashOverlay) {
                                                         flashOverlay.classList.add('active');

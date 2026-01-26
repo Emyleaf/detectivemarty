@@ -18,6 +18,101 @@ window.addEventListener('load', function() {
     // Cambia immagine ogni 10 secondi
     setInterval(changeImageInSequence, 5000);
 
+    const ostAudio = document.getElementById('ost-audio');
+    const musicToggleButton = document.getElementById('music-toggle');
+    const OST_BASE_VOLUME = 0.2;
+    let userPausedMusic = false;
+    let ostFadeInterval = null;
+    let ostWasPlayingBeforeInterruption = false;
+    let interruptionCount = 0;
+
+    function setMusicToggleState(isPlaying) {
+        if (!musicToggleButton) return;
+        musicToggleButton.textContent = isPlaying ? '🎶' : '🔇';
+        musicToggleButton.setAttribute('aria-label', isPlaying ? 'Disattiva musica' : 'Riattiva musica');
+    }
+
+    function clearOstFade() {
+        if (ostFadeInterval) {
+            clearInterval(ostFadeInterval);
+            ostFadeInterval = null;
+        }
+    }
+
+    function fadeOst(targetVolume, duration, onComplete) {
+        if (!ostAudio) return;
+        clearOstFade();
+        const startVolume = ostAudio.volume;
+        const volumeDiff = targetVolume - startVolume;
+        if (Math.abs(volumeDiff) < 0.001) {
+            ostAudio.volume = targetVolume;
+            if (onComplete) onComplete();
+            return;
+        }
+        const steps = 20;
+        const stepTime = duration / steps;
+        let currentStep = 0;
+        ostFadeInterval = setInterval(() => {
+            currentStep += 1;
+            const progress = currentStep / steps;
+            ostAudio.volume = startVolume + volumeDiff * progress;
+            if (currentStep >= steps) {
+                clearOstFade();
+                ostAudio.volume = targetVolume;
+                if (onComplete) onComplete();
+            }
+        }, stepTime);
+    }
+
+    if (ostAudio) {
+        ostAudio.loop = true;
+        ostAudio.volume = OST_BASE_VOLUME;
+        const playPromise = ostAudio.play();
+        if (playPromise) {
+            playPromise.then(() => setMusicToggleState(true)).catch(() => setMusicToggleState(false));
+        } else {
+            setMusicToggleState(!ostAudio.paused);
+        }
+    } else {
+        setMusicToggleState(false);
+    }
+
+    if (musicToggleButton && ostAudio) {
+        setMusicToggleState(!ostAudio.paused);
+        musicToggleButton.addEventListener('click', function() {
+            clearOstFade();
+            if (ostAudio.paused) {
+                userPausedMusic = false;
+                ostAudio.volume = OST_BASE_VOLUME;
+                ostAudio.play().then(() => setMusicToggleState(true)).catch(() => setMusicToggleState(false));
+            } else {
+                userPausedMusic = true;
+                ostAudio.pause();
+                setMusicToggleState(false);
+            }
+        });
+    }
+
+    function pauseOstWithFade(onComplete) {
+        if (!ostAudio || ostAudio.paused) {
+            if (onComplete) onComplete();
+            return;
+        }
+        fadeOst(0, 400, function() {
+            ostAudio.pause();
+            if (onComplete) onComplete();
+        });
+    }
+
+    function resumeOstWithFade() {
+        if (!ostAudio || userPausedMusic) return;
+        ostAudio.volume = 0;
+        ostAudio.play().then(() => {
+            fadeOst(OST_BASE_VOLUME, 500, null);
+            setMusicToggleState(true);
+        }).catch(() => setMusicToggleState(false));
+    }
+
     const sospettatiButton = document.getElementById('sospettati_button');
     const incriminaButton = document.getElementById('incrimina_button');
     const galloButton = document.getElementById('gallo_button');
@@ -316,7 +411,7 @@ window.addEventListener('load', function() {
                     imageWidth: 150,
                     imageAlt: 'Selezione errata',
                     title: 'Mh, non torna…',
-                    text: 'Questi non sembrano i colpevoli. Riprova.',
+                    text: 'Forse ti sta sfuggendo qualcosa. Riprova.',
                     confirmButtonColor: '#dc3545'
                 });
             }
@@ -726,6 +821,45 @@ window.addEventListener('load', function() {
     const closeModalButton = document.getElementById('close-modal');
     const modalBackground = document.getElementById('modal-background');
 
+    function startInterruption() {
+        if (!ostAudio) return;
+        if (interruptionCount === 0) {
+            ostWasPlayingBeforeInterruption = !ostAudio.paused && !userPausedMusic;
+            if (ostWasPlayingBeforeInterruption) {
+                pauseOstWithFade();
+            }
+        }
+        interruptionCount += 1;
+    }
+
+    function endInterruption() {
+        if (!ostAudio || interruptionCount === 0) return;
+        interruptionCount -= 1;
+        if (interruptionCount === 0) {
+            if (ostWasPlayingBeforeInterruption && !userPausedMusic) {
+                resumeOstWithFade();
+            }
+            ostWasPlayingBeforeInterruption = false;
+        }
+    }
+
+    function handleSuspectAudioPlay() {
+        startInterruption();
+    }
+
+    function handleSuspectAudioStop() {
+        endInterruption();
+    }
+
+    if (modalMovente) {
+        modalMovente.addEventListener('play', handleSuspectAudioPlay);
+        modalMovente.addEventListener('ended', handleSuspectAudioStop);
+        modalMovente.addEventListener('pause', function() {
+            // Avoid double-calling when 'ended' fires; rely on interruptionActive flag.
+            handleSuspectAudioStop();
+        });
+    }
+
     characterColumns.forEach(function(column) {
         column.addEventListener('click', function() {
             const characterId = column.getAttribute('data-character');
@@ -922,6 +1056,7 @@ window.addEventListener('load', function() {
                 if (currentAudio) {
                     currentAudio.pause();
                     currentAudio.currentTime = 0;
+                    // pause() triggers interruption end via listener
                     currentAudio = null;
                 }
             }
@@ -959,18 +1094,22 @@ window.addEventListener('load', function() {
                     currentAudio.pause();
                     currentAudio.currentTime = 0;
                 }
-                
-                if (phoneNumber === '1155103') {
-                    // Riproduci audio dexter.mp3
-                    currentAudio = new Audio('./audio/dexter.mp3');
-                    currentAudio.play();
 
-                } else {
-                    // Per qualsiasi altro numero, riproduci misscall.mp3
-                    currentAudio = new Audio('./audio/misscall.mp3');
-                    currentAudio.play();
+                const phoneAudioSrc = phoneNumber === '1155103' ? './audio/dexter.mp3' : './audio/misscall.mp3';
+                const phoneAudio = new Audio(phoneAudioSrc);
 
-                }
+                const cleanupInterruption = () => {
+                    phoneAudio.removeEventListener('ended', cleanupInterruption);
+                    phoneAudio.removeEventListener('pause', cleanupInterruption);
+                    endInterruption();
+                };
+
+                phoneAudio.addEventListener('ended', cleanupInterruption);
+                phoneAudio.addEventListener('pause', cleanupInterruption);
+
+                startInterruption();
+                phoneAudio.play();
+                currentAudio = phoneAudio;
             }
         });
     }
@@ -982,7 +1121,7 @@ window.addEventListener('load', function() {
         notebookButton.addEventListener('click', function() {
             Swal.fire({
                 title: 'Cosa sai?',
-                html: '<div style="background: linear-gradient(transparent, transparent calc(1.5em - 1px), #d4d4d4 calc(1.5em - 1px), #d4d4d4 1.5em); background-size: 100% 1.5em; line-height: 1.5em; padding: 0.5em 1em; text-align: left; font-family: \'IM Fell DW Pica\', serif;">Tu e Gallo siete arrivati alle 19:20 per l\'inizio del buffet alle 19:30. Durante il buffet non avete notato niente di strano e avete mangiato mangiato e ancora mangiato. Dopo 30 min siete stati accompagnati fuori dalla stanza dove avete aspettato per più di 2 ore, nell\'eventualità succedesse qualcosa. E purtroppo, è successo qualcosa.</div>',
+                html: '<div style="background: linear-gradient(transparent, transparent calc(1.5em - 1px), #d4d4d4 calc(1.5em - 1px), #d4d4d4 1.5em); background-size: 100% 1.5em; line-height: 1.5em; padding: 0.5em 1em; text-align: left; font-family: \'IM Fell DW Pica\', serif;">Tu e Gallo siete arrivati alle 19:20 per l\'inizio del buffet alle 19:30. Durante il buffet non avete notato niente di strano e avete mangiato mangiato e ancora mangiato. Dopo 30 min siete stati accompagnati fuori dalla stanza dove avete aspettato per più di 2 ore, nell\'eventualità succedesse qualcosa.<br> E purtroppo, è successo qualcosa.<br><br> Trova il colpevole, prima che possa farla franca!</div>',
                 imageUrl: './img/mmm.png',
                 imageWidth: 150,
                 imageAlt: 'Notebook icon',

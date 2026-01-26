@@ -17,6 +17,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="./img/faviconstuff/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="Detective Marty" />
     <link rel="manifest" href="./img/faviconstuff/site.webmanifest" />
+    <link rel="preload" href="./audio/ost.mp3" as="audio" />
 
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
@@ -74,7 +75,7 @@
         </div>
 
         <div class="character-section hidden mt-6 ml-5">
-            <figure class="image centro marti logo" style="width: 15em; margin-top: 4rem;">
+            <figure class="image centro marti logo" style="width: 15em; margin-top: 4rem; aspect-ratio: auto; margin-left: 2.5rem;">
                 <img id="hellomama-image" src="./img/gnam.png" alt="mama1">
                 <img id="hellomama-image2" style="display: none;" src="./img/gnam2.png" alt="mama2">
             </figure>
@@ -123,6 +124,9 @@
         </div>
 
     </section>
+
+
+    <audio id="ost-preload" src="./audio/ost.mp3" preload="auto" style="display: none;" aria-hidden="true"></audio>
 
 
     <script src="./js/caso1.js"></script>

@@ -51,6 +51,7 @@
 <body>
 
     <div class="background_image"></div>
+    <audio id="ost-audio" src="./audio/ost.mp3" preload="auto" loop style="display: none;" aria-hidden="true"></audio>
 
     <section  class="section centro transition-fade">
         
@@ -74,6 +75,9 @@
                 </div>
                 <a id="incrimina_button"><img class="buttonmenu" src="./img/incrimina.png" alt="" style="width: 12em; height: auto;"></a>
 
+            </div>
+            <div class="has-text-centered" id="music-toggle-container" style="position: fixed; right: 0rem; bottom: 8rem; z-index: 800;">
+                <button id="music-toggle" class="button is-ghost" aria-label="Disattiva musica" style="font-size: 2rem;">🎶</button>
             </div>
             
             <div class="character-section">
