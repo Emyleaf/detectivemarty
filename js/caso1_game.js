@@ -404,7 +404,7 @@ window.addEventListener('load', function() {
                     title: 'Giotto',
                     text: 'Sì, sono io il colpevole! Non potevo più sopportare il suo modo di fare. Sono pronto, portatemi pure via!',
                     showDenyButton: true,
-                    confirmButtonColor: '#28a745',
+                    confirmButtonColor: "#3085d6",
                     denyButtonColor: '#dc3545',
                     confirmButtonText: 'Arresta solo Giotto',
                     denyButtonText: 'Arresta anche Marie'
@@ -605,7 +605,7 @@ window.addEventListener('load', function() {
             answers: [
                 {
                     keywords: ["giotto"],
-                    response: "*Yo*, certo che conosco Giotto, è il mio *best friendo!* Abbiamo fatto Erasmus insieme qualche mese fa, siamo andati in Cina, in Egitto, in Austria, in Inghilterra e ora qua in Italia, siamo *on fire*! Anche se, a differenza sua, a *girls* io sono proprio negato…"
+                    response: "<i>Yo</i>, certo che conosco Giotto, è il mio <i>best friendo!</i> Abbiamo fatto Erasmus insieme qualche mese fa, siamo andati in Cina, in Egitto, in Austria, in Inghilterra e ora qua in Italia, siamo <i>on fire</i>! Anche se, a differenza sua, a <i>girls</i> io sono proprio negato…"
                 },
                 {
                     keywords: ["allerg"],
@@ -613,39 +613,39 @@ window.addEventListener('load', function() {
                 },
                 {
                     keywords: ["coltell", "arma"],
-                    response: "Aaaah *my friend*, *I'm so so so sorry*, purtroppo è uno dei coltelli della cucina l'arma del delitto, non sono stato attento, ho fallito con la mia carriera, *I should be a homeless aaargggh!!!*"
+                    response: "Aaaah <i>my friend</i>, <i>I'm so so so sorry</i>, purtroppo è uno dei coltelli della cucina l'arma del delitto, non sono stato attento, ho fallito con la mia carriera, <i>I should be a homeless aaargggh!!!</i>"
                 },
                 {
-                    keywords: ["foto", "instagram", "padre"],
-                    response: "Questo è *my dad*! Era un cuoco famoso e lavorava qui anche lui molti anni fa… purtroppo, una volta, sbagliò un piatto per il signor Franco e lui lo fece licenziare. Da allora, non l'ho più visto…"
+                    keywords: ["foto", "padre"],
+                    response: "Questo è <i>my dad</i>! Era un cuoco famoso e lavorava qui anche lui molti anni fa… purtroppo, una volta, sbagliò un piatto per il signor Franco e lui lo fece licenziare. Da allora, non l'ho più visto…"
                 },
                 {
                     keywords: ["anna", "monet"],
-                    response: "Anna? *She's so elegant*, una signora molto *chic*! Mi ha fatto i complimenti per il mio cibo, *I was so happy*!"
+                    response: "Anna? <i>She's so elegant</i>, una signora molto <i>chic</i>! Mi ha fatto i complimenti per il mio cibo, <i>I was so happy</i>!"
                 },
                 {
                     keywords: ["elena", "klimt"],
-                    response: "Elena *is sooo sweet*, ama tutto ciò che è bello e *aesthetic*. Ha apprezzato molto la presentazione dei miei piatti!"
+                    response: "Elena <i>is sooo sweet</i>, ama tutto ciò che è bello e <i>aesthetic</i>. Ha apprezzato molto la presentazione dei miei piatti!"
                 },
                 {
                     keywords: ["lucas", "picasso"],
-                    response: "Lucas? *Oh my*, quel tipo è sempre arrabbiato! Non so cosa gli abbia detto Franco, ma sembrava davvero furioso... *Not good, not good at all*!"
+                    response: "Lucas? <i>Oh my</i>, quel tipo è sempre arrabbiato! Non so cosa gli abbia detto Franco, ma sembrava davvero furioso... <i>Not good, not good at all</i>!"
                 },
                 {
                     keywords: ["marie", "vinci"],
-                    response: "Marie è una *good girl*, mi è dispiaciuto quando l'ho vista piangere per il piatto caduto, si senteva in colpa, ma non era assolutamente colpa sua! Gliel'ho ripreparato subito!"
+                    response: "Marie è una <i>good girl</i>, mi è dispiaciuto quando l'ho vista piangere per il piatto caduto, si senteva in colpa, ma non era assolutamente colpa sua! Gliel'ho ripreparato subito!"
                 },
                 {
                     keywords: ["marco", "munch"],
-                    response: "Marco organizzava tutto, era *everywhere*! Sembrava molto stressato, *poor guy*."
+                    response: "Marco organizzava tutto, era <i>everywhere</i>! Sembrava molto stressato, <i>poor guy</i>."
                 },
                 {
                     keywords: ["sofia", "caravaggio"],
-                    response: "Sofia! Mi ha chiesto di posare con alcuni dei miei piatti durante il buffet, *I felt like a celebrity*! Ma poi si è ricordata che era vietato fare foto e ha nascosto la macchina fotografica. *So clumsy! Ahahah!*"
+                    response: "Sofia! Mi ha chiesto di posare con alcuni dei miei piatti durante il buffet, <i>I felt like a celebrity</i>! Ma poi si è ricordata che era vietato fare foto e ha nascosto la macchina fotografica. <i>So clumsy! Ahahah!</i>"
                 },
                 {
                     keywords: ["franco"],
-                    response: "Franco mi guardava con disprezzo, come se fossi un *loser*. Non ho mai avuto rancore per lui, gli ho offerto il miglior buffet possibile, ma lui non era mai soddisfatto."
+                    response: "Franco mi guardava con disprezzo, come se fossi un <i>loser</i>. Non ho mai avuto rancore per lui, gli ho offerto il miglior buffet possibile, ma lui non era mai soddisfatto."
                 }
             ]
         },
@@ -713,7 +713,7 @@ window.addEventListener('load', function() {
                 },
                 {
                     keywords: ["james", "dalì"],
-                    response: "James è il cuoco. Suo padre lavorava qui anni fa... Franco lo aveva fatto licenziare. Quando l'ho saputo mi sono sentita così in colpa..."
+                    response: "James è il cuoco. Mi è dispiaciuto molto per quello che gli è successo..."
                 },
                 {
                     keywords: ["lucas", "picasso"],
