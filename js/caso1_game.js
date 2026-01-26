@@ -20,7 +20,7 @@ window.addEventListener('load', function() {
 
     const ostAudio = document.getElementById('ost-audio');
     const musicToggleButton = document.getElementById('music-toggle');
-    const OST_BASE_VOLUME = 0.2;
+    const OST_BASE_VOLUME = 0.3;
     let userPausedMusic = false;
     let ostFadeInterval = null;
     let ostWasPlayingBeforeInterruption = false;
@@ -398,12 +398,22 @@ window.addEventListener('load', function() {
 
             if (arraysEqualAsSet(selected, CORRECT_SUSPECTS)) {
                 Swal.fire({
-                    imageUrl: './img/yeah.png',
+                    imageUrl: './img/giotto.png',
                     imageWidth: 150,
                     imageAlt: 'Selezione corretta',
-                    title: 'Ottimo lavoro!',
-                    text: 'Hai incriminato i sospettati giusti.',
-                    confirmButtonColor: '#28a745'
+                    title: 'Giotto',
+                    text: 'Sì, sono io il colpevole! Non potevo più sopportare il suo modo di fare. Sono pronto, portatemi pure via!',
+                    showDenyButton: true,
+                    confirmButtonColor: '#28a745',
+                    denyButtonColor: '#dc3545',
+                    confirmButtonText: 'Arresta solo Giotto',
+                    denyButtonText: 'Arresta anche Marie'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = 'caso1_finale1.html';
+                    } else if (result.isDenied) {
+                        window.location.href = 'caso1_finale2.html';
+                    }
                 });
             } else {
                 Swal.fire({

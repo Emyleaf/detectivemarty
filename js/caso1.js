@@ -69,6 +69,15 @@ function typewriter(element, text, speed = 30, onComplete = null, onCharacter = 
 
 // Inizializza l'effetto typewriter al caricamento della pagina
 window.addEventListener('load', function() {
+    // Inizia la riproduzione di prescream.mp3 quando la pagina si carica
+    const prescreamAudio = document.getElementById('prescream-audio');
+    if (prescreamAudio) {
+        prescreamAudio.volume = 0.2;
+        prescreamAudio.play().catch(function(err) {
+            console.log('Errore riproduzione prescream:', err);
+        });
+    }
+    
     const storyElement = document.getElementById('story-text');
     if (storyElement) {
         const storyText = 'Marty, aspirante detective, è diventata da poche settimane tirocinante dell\'Agente Gallo, un noto investigatore di fama internazionale. Gallo è stato invitato alla Villa Neoclassica "La Rotonda", un antico edificio per un\'asta di opere d\'arte fra milionari. Dato l\'interesse di Marty per l\'arte, Gallo decide di portare con sé la sua allieva… sperando vada tutto per il meglio!';
@@ -191,11 +200,33 @@ window.addEventListener('load', function() {
                                                     baloon.classList.remove('hidden');
                                                     baloon.classList.add('turbulent-flash');
                                                     
-                                                    // Riproduci scream.mp3
-                                                    const screamAudio = new Audio('./audio/scream.mp3');
-                                                    screamAudio.play().catch(function(err) {
-                                                        console.log('Errore riproduzione audio:', err);
-                                                    });
+                                                    // Ferma prescream.mp3 e riproduci scream.mp3
+                                                    const prescreamAudio = document.getElementById('prescream-audio');
+                                                    const screamAudio = document.getElementById('scream-audio');
+                                                    
+                                                    if (prescreamAudio) {
+                                                        prescreamAudio.pause();
+                                                        prescreamAudio.currentTime = 0;
+                                                    }
+                                                    
+                                                    if (screamAudio) {
+                                                        screamAudio.play().catch(function(err) {
+                                                            console.log('Errore riproduzione scream:', err);
+                                                        });
+                                                        
+                                                        // Quando scream.mp3 finisce, aspetta 1 secondo e riproduci postscream.mp3
+                                                        screamAudio.addEventListener('ended', function() {
+                                                            setTimeout(function() {
+                                                                const postscreamAudio = document.getElementById('postscream-audio');
+                                                                if (postscreamAudio) {
+                                                                    postscreamAudio.volume = 0.3;
+                                                                    postscreamAudio.play().catch(function(err) {
+                                                                        console.log('Errore riproduzione postscream:', err);
+                                                                    });
+                                                                }
+                                                            }, 1000);
+                                                        }, { once: true });
+                                                    }
                                                     
                                                     // Attiva il flash overlay
                                                     if (flashOverlay) {
