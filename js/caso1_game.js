@@ -28,7 +28,10 @@ window.addEventListener('load', function() {
 
     function setMusicToggleState(isPlaying) {
         if (!musicToggleButton) return;
-        musicToggleButton.textContent = isPlaying ? '🎶' : '🔇';
+        const musicToggleImage = document.getElementById('music-toggle-image');
+        if (musicToggleImage) {
+            musicToggleImage.src = isPlaying ? './img/song.png' : './img/mute.png';
+        }
         musicToggleButton.setAttribute('aria-label', isPlaying ? 'Disattiva musica' : 'Riattiva musica');
     }
 

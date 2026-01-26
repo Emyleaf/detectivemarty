@@ -69,25 +69,42 @@ function typewriter(element, text, speed = 30, onComplete = null, onCharacter = 
 
 // Inizializza l'effetto typewriter al caricamento della pagina
 window.addEventListener('load', function() {
-    // Inizia la riproduzione di prescream.mp3 quando la pagina si carica
-    const prescreamAudio = document.getElementById('prescream-audio');
-    if (prescreamAudio) {
-        prescreamAudio.volume = 0.2;
-        prescreamAudio.play().catch(function(err) {
-            console.log('Errore riproduzione prescream:', err);
-        });
-    }
-    
-    const storyElement = document.getElementById('story-text');
-    if (storyElement) {
-        const storyText = 'Marty, aspirante detective, è diventata da poche settimane tirocinante dell\'Agente Gallo, un noto investigatore di fama internazionale. Gallo è stato invitato alla Villa Neoclassica "La Rotonda", un antico edificio per un\'asta di opere d\'arte fra milionari. Dato l\'interesse di Marty per l\'arte, Gallo decide di portare con sé la sua allieva… sperando vada tutto per il meglio!';
-        typewriter(storyElement, storyText, 30, function() {
-            // Quando il typewriter finisce, incrementa il counter a 1
-            if (clickCount === 0) {
-                clickCount = 1;
+    // Mostra un popup SweetAlert per chiedere se attivare la musica
+    Swal.fire({
+        title: 'Attivare musica?',
+        imageUrl: './img/mmm.png',
+        imageWidth: 150,
+        showCancelButton: true,
+        confirmButtonText: 'Sì',
+        confirmButtonColor: '#09ca09',
+        cancelButtonText: 'No',
+        cancelButtonColor: '#ff0000',
+        allowOutsideClick: false,
+        allowEscapeKey: false
+    }).then((result) => {
+        // Se l'utente clicca "Sì", riproduci prescream.mp3
+        if (result.isConfirmed) {
+            const prescreamAudio = document.getElementById('prescream-audio');
+            if (prescreamAudio) {
+                prescreamAudio.volume = 0.2;
+                prescreamAudio.play().catch(function(err) {
+                    console.log('Errore riproduzione prescream:', err);
+                });
             }
-        });
-    }
+        }
+        
+        // Procedi con il resto della pagina
+        const storyElement = document.getElementById('story-text');
+        if (storyElement) {
+            const storyText = 'Marty, aspirante detective, è diventata da poche settimane tirocinante dell\'Agente Gallo, un noto investigatore di fama internazionale. Gallo è stato invitato alla Villa Neoclassica "La Rotonda", un antico edificio per un\'asta di opere d\'arte fra milionari. Dato l\'interesse di Marty per l\'arte, Gallo decide di portare con sé la sua allieva… sperando vada tutto per il meglio!';
+            typewriter(storyElement, storyText, 30, function() {
+                // Quando il typewriter finisce, incrementa il counter a 1
+                if (clickCount === 0) {
+                    clickCount = 1;
+                }
+            });
+        }
+    });
     
     // Aggiungi event listener alla sezione per i click
     const section = document.querySelector('.section');
