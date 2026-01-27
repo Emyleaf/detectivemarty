@@ -21,6 +21,8 @@ window.addEventListener('load', function() {
     const ostAudio = document.getElementById('ost-audio');
     const musicToggleButton = document.getElementById('music-toggle');
     const OST_BASE_VOLUME = 0.3;
+    const ENDING_BASE_VOLUME = 0.2;
+    let endingAudio = null;
     let userPausedMusic = false;
     let ostFadeInterval = null;
     let ostWasPlayingBeforeInterruption = false;
@@ -65,6 +67,51 @@ window.addEventListener('load', function() {
                 if (onComplete) onComplete();
             }
         }, stepTime);
+    }
+
+    function fadeAudioGeneric(audioEl, targetVolume, duration, onComplete) {
+        if (!audioEl) return;
+        const startVolume = audioEl.volume;
+        const diff = targetVolume - startVolume;
+        if (Math.abs(diff) < 0.001) {
+            audioEl.volume = targetVolume;
+            if (onComplete) onComplete();
+            return;
+        }
+        const steps = 20;
+        const stepTime = duration / steps;
+        let currentStep = 0;
+        const intervalId = setInterval(() => {
+            currentStep += 1;
+            const progress = currentStep / steps;
+            audioEl.volume = startVolume + diff * progress;
+            if (currentStep >= steps) {
+                clearInterval(intervalId);
+                audioEl.volume = targetVolume;
+                if (onComplete) onComplete();
+            }
+        }, stepTime);
+    }
+
+    function playEndingMusicTransition() {
+        if (endingAudio) return; // already transitioned
+        pauseOstWithFade(() => {
+            try {
+                endingAudio = new Audio('./audio/ending.mp3');
+                endingAudio.volume = 0;
+                endingAudio.loop = false;
+                const p = endingAudio.play();
+                if (p && typeof p.then === 'function') {
+                    p.then(() => {
+                        fadeAudioGeneric(endingAudio, ENDING_BASE_VOLUME, 600, null);
+                    }).catch(() => {/* ignore */});
+                } else {
+                    fadeAudioGeneric(endingAudio, ENDING_BASE_VOLUME, 600, null);
+                }
+            } catch (e) {
+                // noop
+            }
+        });
     }
 
     if (ostAudio) {
@@ -413,8 +460,9 @@ window.addEventListener('load', function() {
                     denyButtonText: 'Arresta anche Marie'
                 }).then((result) => {
                     if (result.isConfirmed) {
+                        playEndingMusicTransition();
                         Swal.fire({
-                            imageUrl: './img/foto1.png',
+                            imageUrl: './img/ending1.png',
                             imageWidth: 300,
                             imageAlt: 'Foto scena',
                             title: 'Il peso di una sola colpa',
@@ -426,8 +474,9 @@ window.addEventListener('load', function() {
                             window.location.href = 'index.html';
                         });
                     } else if (result.isDenied) {
+                        playEndingMusicTransition();
                         Swal.fire({
-                            imageUrl: './img/foto1.png',
+                            imageUrl: './img/ending2.png',
                             imageWidth: 300,
                             imageAlt: 'Foto scena',
                             title: 'Not even the gods above',
@@ -540,6 +589,14 @@ window.addEventListener('load', function() {
                 {
                     keywords: ["franco"],
                     response: "Franco era un uomo terribile, lo sappiamo tutti. Arrogante, prepotente, crudele. Ha rovinato le vite di molte persone. Non mi sorprende che qualcuno l'abbia voluto uccidere."
+                },
+                {
+                    keywords: ["ninfe", "stagn"],
+                    response: "<i>Les Nymphéas</i> è una delle mie opere preferite! Franco, purtroppo, mi battè ad un'asta e riuscì a portarselo a casa. Da quel giorno non l'ho più rivisto... nessuno, lo ha più rivisto."
+                },
+                {
+                    keywords: ["allerg", "cetiriz"],
+                    response: "La Cetirizina? Mi serve per la mia allergia alle arachidi. La cucina di James è americana, anche se mi ha assicurato di essere stato molto attento, non si sa mai."
                 }
             ]
         },
@@ -561,7 +618,7 @@ window.addEventListener('load', function() {
                 },
                 {
                     keywords: ["james", "dalì"],
-                    response: "James sembrava così stressato, poverino! Il cibo era delizioso però, è bravissimo, ha intavolato tutto in maniera molto aesthetic come piace a me!"
+                    response: "La cucina di James era deliziosa, è stato bravissimo, ha intavolato tutto in maniera molto aesthetic come piace a me! Però è molto sbadato, quando si sono riaccese le luci ha fatto cadere diversi piatti, non vi dico che casino!"
                 },
                 {
                     keywords: ["lucas", "picasso"],
@@ -690,7 +747,7 @@ window.addEventListener('load', function() {
                 },
                 {
                     keywords: ["forbic", "attrezz", "elett"],
-                    response: "Le forbici? Le porto sempre con me, non si sa mai quando possono servire."
+                    response: "Le forbici? Le porto sempre con me, non si sa mai quando possano servire."
                 },
                 {
                     keywords: ["anna", "monet"],
@@ -773,7 +830,7 @@ window.addEventListener('load', function() {
                     response: "Io e il mio team avevamo preparato tutto l'occorrente ma questo edificio purtroppo è molto vecchio e non sapevamo dove mettere mano, per questo ci ha dato una mano Giotto."
                 },
                 {
-                    keywords: ["debit"],
+                    keywords: ["debit", "casa"],
                     response: "Sfortunatamente ho un grosso debito sulle spalle, quest'asta non doveva andare male per nessun motivo, ma guardate! Il numero di visual è assurdo! Diventerò ricchissimo!!! Ah, devo spegnere la live? Accidenti…"
                 },
                 {
@@ -828,7 +885,7 @@ window.addEventListener('load', function() {
                 },
                 {
                     keywords: ["giotto"],
-                    response: "Giotto è una persona tranquilla, non abbiamo interagito molto, ma ha fatto benissimo il suo lavoro!"
+                    response: "Giotto è una persona tranquilla, non abbiamo interagito molto, ma ha fatto benissimo il suo lavoro! Mi dispiace che si sia spaventato così tanto quando ha visto il corpo di Franco, gli è caduto anche il martelletto dallo shock!"
                 },
                 {
                     keywords: ["james", "dalì"],
