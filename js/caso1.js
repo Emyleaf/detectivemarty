@@ -86,7 +86,7 @@ window.addEventListener('load', function() {
         if (result.isConfirmed) {
             const prescreamAudio = document.getElementById('prescream-audio');
             if (prescreamAudio) {
-                prescreamAudio.volume = 0.2;
+                prescreamAudio.volume = 0.15;
                 prescreamAudio.play().catch(function(err) {
                     console.log('Errore riproduzione prescream:', err);
                 });
@@ -202,134 +202,149 @@ window.addEventListener('load', function() {
                                 if (galloText2) {
                                     const text = 'Yawn, mi sto addormentando… aspettare qua fuori è palloso, però è quasi finita, menomale che è andato tutto per il megl…';
                                     typewriter(galloText2, text, 40, null, function(char, index) {
-                                        // Quando si raggiunge la "g" finale, fade-out del story-card2
+                                        // Alla fine della frase, attendi un click dell'utente per procedere
                                         if (char === '…' && index === text.length - 1) {
                                             clearTimeout(currentTimeoutId);
-                                            storyCard2.classList.add('transition-out');
-                                            setTimeout(function() {
-                                                storyCard2.classList.add('hidden');
-                                                storyCard2.classList.remove('zoom-in-out-box');
-                                                
-                                                // Mostra il baloon
-                                                const baloon = document.querySelector('.baloon');
-                                                const flashOverlay = document.querySelector('.flash-overlay');
-                                                if (baloon) {
-                                                    baloon.classList.remove('hidden');
-                                                    baloon.classList.add('turbulent-flash');
-                                                    
-                                                    // Ferma prescream.mp3 e riproduci scream.mp3
-                                                    const prescreamAudio = document.getElementById('prescream-audio');
-                                                    const screamAudio = document.getElementById('scream-audio');
-                                                    
-                                                    if (prescreamAudio) {
-                                                        prescreamAudio.pause();
-                                                        prescreamAudio.currentTime = 0;
-                                                    }
-                                                    
-                                                    if (screamAudio) {
-                                                        screamAudio.play().catch(function(err) {
-                                                            console.log('Errore riproduzione scream:', err);
-                                                        });
-                                                        
-                                                        // Quando scream.mp3 finisce, aspetta 1 secondo e riproduci postscream.mp3
-                                                        screamAudio.addEventListener('ended', function() {
-                                                            setTimeout(function() {
-                                                                const postscreamAudio = document.getElementById('postscream-audio');
-                                                                if (postscreamAudio) {
-                                                                    postscreamAudio.volume = 0.3;
-                                                                    postscreamAudio.play().catch(function(err) {
-                                                                        console.log('Errore riproduzione postscream:', err);
-                                                                    });
-                                                                }
-                                                            }, 1000);
-                                                        }, { once: true });
-                                                    }
-                                                    
-                                                    // Attiva il flash overlay
-                                                    if (flashOverlay) {
-                                                        flashOverlay.classList.add('active');
-                                                        setTimeout(function() {
-                                                            flashOverlay.classList.remove('active');
-                                                        }, 600);
-                                                    }
-                                                    
-                                                    // Dopo 4 secondi, fade-out del baloon
+                                            const sectionEl = document.querySelector('.section');
+                                            if (sectionEl) {
+                                                const handleScreamTrigger = function handleScreamTrigger() {
+                                                    sectionEl.removeEventListener('click', handleScreamTrigger);
+
+                                                    // Nascondi lo story-card2 solo al click
+                                                    storyCard2.classList.add('transition-out');
                                                     setTimeout(function() {
-                                                        baloon.classList.remove('turbulent-flash');
-                                                        baloon.classList.add('fade-out-slow');
-                                                        
-                                                        // Mostra e fade-in del foto1-container
-                                                        setTimeout(function() {
-                                                            baloon.classList.add('hidden');
-                                                            baloon.classList.remove('fade-out-slow');
-                                                            
-                                                            const foto1Container = document.getElementById('foto1-container');
-                                                            if (foto1Container) {
-                                                                foto1Container.classList.remove('hidden');
-                                                                foto1Container.classList.add('fade-in-slow');
-                                                                
-                                                                // Dopo 4 secondi, fade-out della polaroid e mostra contenuto finale
+                                                        storyCard2.classList.add('hidden');
+                                                        storyCard2.classList.remove('zoom-in-out-box');
+
+                                                        // Mostra baloon e flash, e riproduci scream al click
+                                                        const baloon = document.querySelector('.baloon');
+                                                        const flashOverlay = document.querySelector('.flash-overlay');
+                                                        const prescreamAudio = document.getElementById('prescream-audio');
+                                                        const screamAudio = document.getElementById('scream-audio');
+
+                                                        if (baloon) {
+                                                            baloon.classList.remove('hidden');
+                                                            baloon.classList.add('turbulent-flash');
+                                                        }
+
+                                                        if (prescreamAudio) {
+                                                            prescreamAudio.pause();
+                                                            prescreamAudio.currentTime = 0;
+                                                        }
+
+                                                        if (flashOverlay) {
+                                                            flashOverlay.classList.add('active');
+                                                            setTimeout(function() {
+                                                                flashOverlay.classList.remove('active');
+                                                            }, 600);
+                                                        }
+
+                                                        if (screamAudio) {
+                                                            try { screamAudio.currentTime = 0; } catch(e) {}
+                                                            screamAudio.play().catch(function(err) {
+                                                                console.log('Errore riproduzione scream:', err);
+                                                            });
+                                                        }
+
+                                                        // Secondo click: baloon in transition-out, avvia postscream subito, poi foto1
+                                                        const handleBaloonDismiss = function handleBaloonDismiss() {
+                                                            if (baloon) baloon.removeEventListener('click', handleBaloonDismiss);
+
+                                                            const postscreamAudio = document.getElementById('postscream-audio');
+                                                            if (screamAudio && !screamAudio.paused) {
+                                                                try { screamAudio.pause(); } catch(e) {}
+                                                            }
+                                                            if (postscreamAudio) {
+                                                                postscreamAudio.volume = 0.3;
+                                                                try { postscreamAudio.currentTime = 0; } catch(e) {}
+                                                                postscreamAudio.play().catch(function(err) {
+                                                                    console.log('Errore riproduzione postscream:', err);
+                                                                });
+                                                            }
+
+                                                            if (baloon) {
+                                                                baloon.classList.remove('turbulent-flash');
+                                                                // Usa la stessa transizione standard del sito
+                                                                baloon.classList.add('transition-out');
+
+                                                                // Quando la transizione del baloon termina, avvia foto1
                                                                 setTimeout(function() {
-                                                                    foto1Container.classList.remove('fade-in-slow');
-                                                                    foto1Container.classList.add('fade-out-slow');
-                                                                    
-                                                                    setTimeout(function() {
-                                                                        foto1Container.classList.add('hidden');
-                                                                        
-                                                                        const finalContent = document.getElementById('final-content');
-                                                                        if (finalContent) {
-                                                                            finalContent.classList.remove('hidden');
-                                                                            
-                                                                            // Anima il logo prima
-                                                                            const logoFigure = document.getElementById('logo-figure');
-                                                                            if (logoFigure) {
-                                                                                // Il logo ha già la classe 'logo' con animazione logo-pulse 1.5s
-                                                                                
-                                                                                // Dopo 1.5s (fine animazione logo), mostra "in"
-                                                                                setTimeout(function() {
-                                                                                    const inText = document.getElementById('in-text');
-                                                                                    if (inText) {
-                                                                                        inText.classList.remove('hidden');
-                                                                                        // L'elemento ha già la classe 'logo' con animazione logo-pulse 1.5s
-                                                                                        
-                                                                                        // Dopo 1.5s (fine animazione "in"), mostra caso1 image
+                                                                    baloon.classList.add('hidden');
+                                                                    baloon.classList.remove('transition-out');
+
+                                                                    const foto1Container = document.getElementById('foto1-container');
+                                                                    if (foto1Container) {
+                                                                        foto1Container.classList.remove('hidden');
+                                                                        foto1Container.classList.add('fade-in-slow');
+
+                                                                        // Dopo 4 secondi, fade-out della polaroid e mostra contenuto finale
+                                                                        setTimeout(function() {
+                                                                            foto1Container.classList.remove('fade-in-slow');
+                                                                            foto1Container.classList.add('fade-out-slow');
+
+                                                                            setTimeout(function() {
+                                                                                foto1Container.classList.add('hidden');
+
+                                                                                const finalContent = document.getElementById('final-content');
+                                                                                if (finalContent) {
+                                                                                    finalContent.classList.remove('hidden');
+
+                                                                                    // Anima il logo prima
+                                                                                    const logoFigure = document.getElementById('logo-figure');
+                                                                                    if (logoFigure) {
+                                                                                        // Il logo ha già la classe 'logo' con animazione logo-pulse 1.5s
+
+                                                                                        // Dopo 1.5s (fine animazione logo), mostra "in"
                                                                                         setTimeout(function() {
-                                                                                            const caso1Image = document.getElementById('caso1-image');
-                                                                                            if (caso1Image) {
-                                                                                                caso1Image.classList.remove('hidden');
+                                                                                            const inText = document.getElementById('in-text');
+                                                                                            if (inText) {
+                                                                                                inText.classList.remove('hidden');
                                                                                                 // L'elemento ha già la classe 'logo' con animazione logo-pulse 1.5s
-                                                                                                
-                                                                                                // Dopo 1.5s (fine ultima animazione), abilita il click
+
+                                                                                                // Dopo 1.5s (fine animazione "in"), mostra caso1 image
                                                                                                 setTimeout(function() {
-                                                                                                    let clickEnabled = true;
-                                                                                                    const section = document.querySelector('.section');
-                                                                                                    
-                                                                                                    section.addEventListener('click', function handleFinalClick() {
-                                                                                                        if (!clickEnabled) return;
-                                                                                                        clickEnabled = false;
-                                                                                                        
-                                                                                                        // Fade-out di tutta la sezione
-                                                                                                        section.classList.add('transition-out');
-                                                                                                        
-                                                                                                        // Reindirizza dopo il fade-out (800ms)
+                                                                                                    const caso1Image = document.getElementById('caso1-image');
+                                                                                                    if (caso1Image) {
+                                                                                                        caso1Image.classList.remove('hidden');
+                                                                                                        // L'elemento ha già la classe 'logo' con animazione logo-pulse 1.5s
+
+                                                                                                        // Dopo 1.5s (fine ultima animazione), abilita il click
                                                                                                         setTimeout(function() {
-                                                                                                            window.location.href = 'caso1_game.html';
-                                                                                                        }, 800);
-                                                                                                    });
+                                                                                                            let clickEnabled = true;
+                                                                                                            const section = document.querySelector('.section');
+
+                                                                                                            section.addEventListener('click', function handleFinalClick() {
+                                                                                                                if (!clickEnabled) return;
+                                                                                                                clickEnabled = false;
+
+                                                                                                                // Fade-out di tutta la sezione
+                                                                                                                section.classList.add('transition-out');
+
+                                                                                                                // Reindirizza dopo il fade-out (800ms)
+                                                                                                                setTimeout(function() {
+                                                                                                                    window.location.href = 'caso1_game.html';
+                                                                                                                }, 800);
+                                                                                                            });
+                                                                                                        }, 1500);
+                                                                                                    }
                                                                                                 }, 1500);
                                                                                             }
                                                                                         }, 1500);
                                                                                     }
-                                                                                }, 1500);
-                                                                            }
-                                                                        }
-                                                                    }, 4000);
-                                                                }, 4000);
+                                                                                }
+                                                                            }, 4000);
+                                                                        }, 4000);
+                                                                    }
+                                                                }, 800);
                                                             }
-                                                        }, 4000);
-                                                    }, 1200);
-                                                }
-                                            }, 800);
+                                                        };
+
+                                                        if (baloon) baloon.addEventListener('click', handleBaloonDismiss, { once: true });
+                                                    }, 800);
+                                                };
+
+                                                sectionEl.addEventListener('click', handleScreamTrigger);
+                                            }
                                         }
                                     });
                                 }

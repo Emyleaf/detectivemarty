@@ -30,7 +30,7 @@ window.addEventListener('load', function() {
         if (!musicToggleButton) return;
         const musicToggleImage = document.getElementById('music-toggle-image');
         if (musicToggleImage) {
-            musicToggleImage.src = isPlaying ? './img/song.png' : './img/mute.png';
+            musicToggleImage.src = isPlaying ? './img/song.png' : './img/muted.png';
         }
         musicToggleButton.setAttribute('aria-label', isPlaying ? 'Disattiva musica' : 'Riattiva musica');
     }
@@ -413,9 +413,35 @@ window.addEventListener('load', function() {
                     denyButtonText: 'Arresta anche Marie'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.href = 'caso1_finale1.html';
+                        Swal.fire({
+                            imageUrl: './img/foto1.png',
+                            imageWidth: 300,
+                            imageAlt: 'Foto scena',
+                            title: 'Finale 1',
+                            width: 700,
+                            background: '',
+                            html: `<div style="max-height: 40vh; overflow-y: auto; text-align: left; padding-right: .5rem;">
+                                Giotto fu arrestato per omicidio colposo. Franco da Vinci era un miliardario presuntuoso, alcolizzato e aveva affari loschi con qualcuno. Odiava l'arte, comprava i quadri per poi rivenderli o distruggerli. Il quadro all'asta di questa sera era "Il bacio", simbolo dell'amore, un quadro che invece la sua giovane moglie adorava, Marie da Vinci, alias Marie Schiele. Marie era antenata dell'omonimo pittore, grandissimo amico di Klimt, e non voleva che il quadro andasse distrutto, doveva fermare suo marito. Giotto e Marie da Vinci avevano una relazione segreta, si sono conosciuti in Erasmus, a Vienna, e decidono insieme di commettere l'atto. Durante il buffet, Marie ha fatto cadere di proposito un piatto a base di crostacei e Giotto ha approfittato di quel momento per cospargere gli opuscoli dell'asta della sostanza allergica. La strategia di Franco durante le aste era ben nota a Marie e sapeva che Anna lo innervosiva sempre, per questo aveva preso l'abitudine di mangiarsi le unghie: ha quindi ingerito così la sostanza, anche se non ha mangiato nulla al buffet, ed essendo allergico ha avuto uno shock anafilattico. Il coltello è stato un diversivo messo da Marie da Vinci quando è corsa da lui nella confusione, ma lui era già morto.
+                            </div>`,
+                            confirmButtonText: 'Fine'
+                        }).then(() => {
+                            window.location.href = 'index.html';
+                        });
                     } else if (result.isDenied) {
-                        window.location.href = 'caso1_finale2.html';
+                        Swal.fire({
+                            imageUrl: './img/foto1.png',
+                            imageWidth: 300,
+                            imageAlt: 'Foto scena',
+                            title: 'Finale 2',
+                            width: 700,
+                            background: '',
+                            html: `<div style="max-height: 40vh; overflow-y: auto; text-align: left; padding-right: .5rem;">
+                                Marie fu arrestato per omicidio colposo. Franco da Vinci era un miliardario presuntuoso, alcolizzato e aveva affari loschi con qualcuno. Odiava l'arte, comprava i quadri per poi rivenderli o distruggerli. Il quadro all'asta di questa sera era "Il bacio", simbolo dell'amore, un quadro che invece la sua giovane moglie adorava, Marie da Vinci, alias Marie Schiele. Marie era antenata dell'omonimo pittore, grandissimo amico di Klimt, e non voleva che il quadro andasse distrutto, doveva fermare suo marito. Giotto e Marie da Vinci avevano una relazione segreta, si sono conosciuti in Erasmus, a Vienna, e decidono insieme di commettere l'atto. Durante il buffet, Marie ha fatto cadere di proposito un piatto a base di crostacei e Giotto ha approfittato di quel momento per cospargere gli opuscoli dell'asta della sostanza allergica. La strategia di Franco durante le aste era ben nota a Marie e sapeva che Anna lo innervosiva sempre, per questo aveva preso l'abitudine di mangiarsi le unghie: ha quindi ingerito così la sostanza, anche se non ha mangiato nulla al buffet, ed essendo allergico ha avuto uno shock anafilattico. Il coltello è stato un diversivo messo da Marie da Vinci quando è corsa da lui nella confusione, ma lui era già morto.
+                            </div>`,
+                            confirmButtonText: 'Fine'
+                        }).then(() => {
+                            window.location.href = 'index.html';
+                        });
                     }
                 });
             } else {
