@@ -30,7 +30,7 @@ window.addEventListener('load', function() {
         if (!musicToggleButton) return;
         const musicToggleImage = document.getElementById('music-toggle-image');
         if (musicToggleImage) {
-            musicToggleImage.src = isPlaying ? './img/song.png' : './img/muted.png';
+            musicToggleImage.src = isPlaying ? './img/song.png' : './img/mute.png';
         }
         musicToggleButton.setAttribute('aria-label', isPlaying ? 'Disattiva musica' : 'Riattiva musica');
     }
@@ -417,12 +417,10 @@ window.addEventListener('load', function() {
                             imageUrl: './img/foto1.png',
                             imageWidth: 300,
                             imageAlt: 'Foto scena',
-                            title: 'Finale 1',
+                            title: 'Il peso di una sola colpa',
                             width: 700,
                             background: '',
-                            html: `<div style="max-height: 40vh; overflow-y: auto; text-align: left; padding-right: .5rem;">
-                                Giotto fu arrestato per omicidio colposo. Franco da Vinci era un miliardario presuntuoso, alcolizzato e aveva affari loschi con qualcuno. Odiava l'arte, comprava i quadri per poi rivenderli o distruggerli. Il quadro all'asta di questa sera era "Il bacio", simbolo dell'amore, un quadro che invece la sua giovane moglie adorava, Marie da Vinci, alias Marie Schiele. Marie era antenata dell'omonimo pittore, grandissimo amico di Klimt, e non voleva che il quadro andasse distrutto, doveva fermare suo marito. Giotto e Marie da Vinci avevano una relazione segreta, si sono conosciuti in Erasmus, a Vienna, e decidono insieme di commettere l'atto. Durante il buffet, Marie ha fatto cadere di proposito un piatto a base di crostacei e Giotto ha approfittato di quel momento per cospargere gli opuscoli dell'asta della sostanza allergica. La strategia di Franco durante le aste era ben nota a Marie e sapeva che Anna lo innervosiva sempre, per questo aveva preso l'abitudine di mangiarsi le unghie: ha quindi ingerito così la sostanza, anche se non ha mangiato nulla al buffet, ed essendo allergico ha avuto uno shock anafilattico. Il coltello è stato un diversivo messo da Marie da Vinci quando è corsa da lui nella confusione, ma lui era già morto.
-                            </div>`,
+                            html: `<div style="max-height: 40vh; overflow-y: auto; text-align: left; padding-right: .5rem;">Giotto fu l'unico a essere arrestato. Quando le manette scattarono ai suoi polsi, nella sala nessuno parlò, ma si poteva percepire un triste sollievo.<br><br> Detective Marty incominciò a svelare la sua teoria e la verità emerse poco a poco.<br><br> Franco da Vinci era un miliardario arrogante, alcolizzato, coinvolto in affari oscuri e privi di scrupoli. L'arte, per lui, non era bellezza, ma pura merce di scambio. Comprava quadri per rivenderli al miglior offerente… o distruggerli.<br><br> Quella sera all'asta c'era <i>Il Bacio</i>. Un dipinto che parlava d'amore. Un'opera che la sua giovane moglie, Marie da Vinci — alias Marie Schiele — adorava profondamente. Forse non era un caso: Marie era discendente dell'omonimo pittore, grande amico di Klimt, e sentiva quell'arte come parte del proprio sangue. L'idea che Franco potesse distruggere il quadro… Doveva fermarlo. A qualunque costo.<br><br> Giotto e Marie si conoscevano da anni. Si erano incontrati a Vienna, durante un Erasmus. Da quell'incontro era nata una relazione segreta. Insieme avevano deciso di agire.<br><br> Durante il buffet, Marie fece cadere di proposito un piatto a base di crostacei. Un gesto banale, quasi invisibile nella confusione. Giotto colse quell'attimo per cospargere gli opuscoli dell'asta con una sostanza altamente allergenica. Conoscevano bene le abitudini di Franco: sapevano che Anna lo irritava sempre, che l'ansia lo portava a mangiarsi le unghie. Anche quella sera non resistette. Non toccò cibo, ma ingerì comunque la sostanza.<br><br> Lo shock anafilattico fu rapido, letale.<br><br> Marie corse verso di lui e, dopo che Giotto fece intenzionalmente cadere il martello d'asta, creando un boato assurdo per la sala, piantò il coltello dietro la sua schiena, ma Franco era già morto.<br><br> L'Agente Gallo si prese la briga di spiegare ai presenti cos'era successo. Marie scoppiò in lacrime, ma tutti furono molto comprensivi e si riunirono in un grande e caloroso abbraccio (un'idea di James!).<br><br> Giotto si prese tutta la colpa. Marie rimase libera. La sua vita proseguì tra sale d'arte e stanze d'aste, accompagnata dal ricordo di un amore impossibile e di un quadro che l'avrebbe accompagnata per sempre: un <i>Bacio</i> che non potrà mai più realizzarsi.</div>`,
                             confirmButtonText: 'Fine'
                         }).then(() => {
                             window.location.href = 'index.html';
@@ -432,11 +430,11 @@ window.addEventListener('load', function() {
                             imageUrl: './img/foto1.png',
                             imageWidth: 300,
                             imageAlt: 'Foto scena',
-                            title: 'Finale 2',
+                            title: 'Not even the gods above',
                             width: 700,
                             background: '',
                             html: `<div style="max-height: 40vh; overflow-y: auto; text-align: left; padding-right: .5rem;">
-                                Marie fu arrestato per omicidio colposo. Franco da Vinci era un miliardario presuntuoso, alcolizzato e aveva affari loschi con qualcuno. Odiava l'arte, comprava i quadri per poi rivenderli o distruggerli. Il quadro all'asta di questa sera era "Il bacio", simbolo dell'amore, un quadro che invece la sua giovane moglie adorava, Marie da Vinci, alias Marie Schiele. Marie era antenata dell'omonimo pittore, grandissimo amico di Klimt, e non voleva che il quadro andasse distrutto, doveva fermare suo marito. Giotto e Marie da Vinci avevano una relazione segreta, si sono conosciuti in Erasmus, a Vienna, e decidono insieme di commettere l'atto. Durante il buffet, Marie ha fatto cadere di proposito un piatto a base di crostacei e Giotto ha approfittato di quel momento per cospargere gli opuscoli dell'asta della sostanza allergica. La strategia di Franco durante le aste era ben nota a Marie e sapeva che Anna lo innervosiva sempre, per questo aveva preso l'abitudine di mangiarsi le unghie: ha quindi ingerito così la sostanza, anche se non ha mangiato nulla al buffet, ed essendo allergico ha avuto uno shock anafilattico. Il coltello è stato un diversivo messo da Marie da Vinci quando è corsa da lui nella confusione, ma lui era già morto.
+                                Il detective Marty li osservò a lungo, uno accanto all'altra. Silenziosi. Stanchi. Uniti da qualcosa che andava oltre la paura.<br><br> Questa volta non ci furono eccezioni.<br><br> Le indagini avevano parlato chiaro: l'omicidio di Franco da Vinci non era stato il gesto isolato di un uomo innamorato, ma il risultato di una decisione condivisa. Ogni dettaglio, ogni coincidenza, ogni silenzio conduceva sempre allo stesso punto: avevano pianificato tutto insieme.<br><br> Franco era un uomo difficile da compiangere. Presuntuoso, violento nei modi, corrotto dal denaro. L'arte, per lui, era solo un mezzo. Aveva affari loschi con chissà quale organizzazione. Il Bacio, il quadro all'asta quella sera, rappresentava tutto ciò che disprezzava… e tutto ciò che Marie amava. La distruzione imminente dell'opera era stata la scintilla.<br><br> Marie, discendente di Schiele, non sopportava l'idea che quell'opera venisse distrutta. Giotto, che l'amava da anni, aveva scelto di seguirla. Quel viaggio a Vienna li aveva uniti; quella sala d'aste li aveva condannati.<br><br> Il piano era semplice: far cadere apposta il piatto di crostacei; mettere una sostanza allergizzante sugli opuscoli; contare sulla certezza che Franco, nervoso come sempre, si sarebbe mangiato le unghie; usare il coltello, infine, non per uccidere ma per depistare.<br><br> Quando Franco crollò a terra, il destino era già segnato.<br><br> Giotto venne arrestato per omicidio colposo aggravato; Marie per concorso in omicidio e depistaggio. Nessuno dei due oppose resistenza. Si scambiarono solo uno sguardo, breve ma intenso.<br><br> Il Bacio venne sequestrato e affidato al museo di Anna Monet, la quale rincuorò i ragazzi assicurando che l'opera sarebbe stata per sempre in buone mani. Sopravvisse a Franco, ai tribunali e allo scandalo.<br><br> Giotto e Marie si persero fra sentenze, celle e amore. Rimasero in carcere a lungo, ma questo non li allontanò di un centimetro. Anche se in celle separate, anche se in stanze distanti, sapevano di aver fatto la cosa giusta e che il loro amore avrebbe prevalso su ogni forma di giustizia. <br><br> Alcuni anni dopo, Sofia pubblicò un libro riguardo questa storia e diede così inizio al suo percorso da scrittrice con: 'Not even the gods above'.
                             </div>`,
                             confirmButtonText: 'Fine'
                         }).then(() => {
@@ -600,6 +598,10 @@ window.addEventListener('load', function() {
                     response: "Conosco il mio collega, ma l'ho sempre visto troppo stravagante, non siamo così compatibili come dice lui."
                 },
                 {
+                    keywords: ["martel"],
+                    response: "Il martelletto? Sì, perdonatemi, l'ho fatto cadere quando ho visto il corpo di Franco, ero sconvolto."
+                },
+                {
                     keywords: ["marie", "vinci"],
                     response: "Marie? Non la conosco. Mi ricorderei di una bella donna come lei."
                 },
@@ -738,7 +740,7 @@ window.addEventListener('load', function() {
                 },
                 {
                     keywords: ["giotto"],
-                    response: "Sembra una persona tranquilla, ma non l'ho mai visto prima d'ora."
+                    response: "Sembra una persona tranquilla, ma non l'ho mai visto prima d'ora, deve essere un tirocinante."
                 },
                 {
                     keywords: ["james", "dalì"],
@@ -1013,7 +1015,7 @@ window.addEventListener('load', function() {
                     imageWidth: 150,
                     imageAlt: 'Risposta corretta',
                     title: characterData.name,
-                    text: foundAnswer,
+                    html: foundAnswer,
                     confirmButtonColor: '#28a745'
                 });
             } else {
