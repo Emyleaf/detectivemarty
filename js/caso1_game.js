@@ -693,7 +693,7 @@ window.addEventListener('load', function() {
             answers: [
                 {
                     keywords: ["libro", "ricett"],
-                    response: "Ho usato un libro di ricette di John Brownie per stasera, mi ha ispirato per il menu! Sapevi che i crostacei hanno un sistema circolatorio aperto con emolinfa, un mix di acqua e proteine come mioglobina e astaxantina, che viene eliminata durante la lavorazione? <i>Thank you, John!</i> Senza di lui sarei spacciato!"
+                    response: "Ho usato un libro di ricette di John Brownie per stasera, mi ha ispirato per il menu! Sapevi che i crostacei hanno un sistema circolatorio aperto con emolinfa, un mix di acqua e mioglobina, che viene eliminata durante la lavorazione? <i>Thank you, John!</i>, non sono un esperto come lui ma spero di aver fatto un buon lavoro!"
                 },
                 {
                     keywords: ["giotto"],

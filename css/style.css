@@ -632,3 +632,9 @@ body {
     border: 3px solid #d32f2f;
     border-radius: 50%;
   }
+
+
+a.disabled {
+  pointer-events: none;
+  cursor: default;
+}
