@@ -522,6 +522,10 @@ window.addEventListener('load', function() {
                     text: 'Forse ti sta sfuggendo qualcosa. Riprova.',
                     confirmButtonColor: '#dc3545'
                 });
+                // Deseleziona tutti i sospettati dopo selezione errata
+                const selectedImgs = incriminaContainerEl.querySelectorAll('.image img.selected');
+                selectedImgs.forEach(img => img.classList.remove('selected'));
+                updateConfirmIncriminaState();
             }
         });
     }
