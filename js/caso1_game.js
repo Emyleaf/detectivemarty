@@ -533,15 +533,21 @@ window.addEventListener('load', function() {
             const portamoduliContainer = document.getElementById('portamoduli-container');
             const incriminaContainer = document.getElementById('incrimina-container');
             
-            // Ferma incrimina.mp3 e riavvia ost.mp3
-            const incriminaAudio = document.getElementById('incrimina-audio');
-            if (incriminaAudio) {
-                incriminaAudio.pause();
-                incriminaAudio.currentTime = 0;
-            }
-            if (ostAudio && userPausedMusic === false) {
-                ostAudio.currentTime = 0;
-                ostAudio.play().catch(() => {/* ignore autoplay errors */});
+            // Ferma incrimina.mp3 e riavvia ost.mp3 solo se si torna dalla sezione incrimina
+            if (!incriminaContainer.classList.contains('hidden')) {
+                const incriminaAudio = document.getElementById('incrimina-audio');
+                if (incriminaAudio) {
+                    incriminaAudio.pause();
+                    incriminaAudio.currentTime = 0;
+                }
+                if (ostAudio && userPausedMusic === false) {
+                    ostAudio.currentTime = 0;
+                    ostAudio.play().catch(() => {/* ignore autoplay errors */});
+                }
+                // Deseleziona tutti i sospettati
+                const selectedImgs = incriminaContainerEl.querySelectorAll('.image img.selected');
+                selectedImgs.forEach(img => img.classList.remove('selected'));
+                updateConfirmIncriminaState();
             }
             
             // Nascondi portamoduli o incrimina con animazione inversa
