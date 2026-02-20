@@ -115,6 +115,7 @@
 
     <div id="main-content">
         <div class="background_image"></div>
+        <audio id="ost-audio" src="./audio/theme.mp3" preload="auto" loop style="display: none;" aria-hidden="true"></audio>
 
     <section  class="section centro transition-fade">
         
@@ -129,6 +130,12 @@
                 <a id="casi-button"><img class="buttonmenu" src="./img/casi.png" alt="" style="width: 12em; height: auto; margin-top: 5em;"></a>
                 <a href="./work.html" id="dossier-button" class="disabled"><img class="buttonmenu" src="./img/dossier.png" alt="" style="width: 12em; height: auto;  filter: grayscale(100%);"></a>
                 <a href="./caso1.html" id="caso1-button" class="hidden"><img src="./img/caso1.png" alt="" style="width: 12em; height: auto; margin-top: 4em;"></a>
+            </div>
+            
+            <div class="has-text-centered" id="music-toggle-container" style="position: fixed; right: 2.5rem; bottom: 3rem; z-index: 800;">
+                <button id="music-toggle" class="button is-ghost" aria-label="Disattiva musica" style="background: transparent; border: none; padding: 0;">
+                    <img id="music-toggle-image" src="./img/song.png" alt="Musica" style="width: 3rem; height: 3rem;">
+                </button>
             </div>
             
             <div class="character-section" style="margin-left: -2em;">

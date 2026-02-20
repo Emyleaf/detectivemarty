@@ -1,6 +1,85 @@
 // Variabili di stato per alternare immagini
 let currentImage = 1;
 
+// Logica per la musica
+const ostAudio = document.getElementById('ost-audio');
+const musicToggleButton = document.getElementById('music-toggle');
+const OST_BASE_VOLUME = 0.3;
+let userPausedMusic = false;
+let ostFadeInterval = null;
+
+function setMusicToggleState(isPlaying) {
+    if (!musicToggleButton) return;
+    const musicToggleImage = document.getElementById('music-toggle-image');
+    if (musicToggleImage) {
+        musicToggleImage.src = isPlaying ? './img/song.png' : './img/mute.png';
+    }
+    musicToggleButton.setAttribute('aria-label', isPlaying ? 'Disattiva musica' : 'Riattiva musica');
+}
+
+function clearOstFade() {
+    if (ostFadeInterval) {
+        clearInterval(ostFadeInterval);
+        ostFadeInterval = null;
+    }
+}
+
+function fadeOst(targetVolume, duration, onComplete) {
+    if (!ostAudio) return;
+    clearOstFade();
+    const startVolume = ostAudio.volume;
+    const volumeDiff = targetVolume - startVolume;
+    if (Math.abs(volumeDiff) < 0.001) {
+        ostAudio.volume = targetVolume;
+        if (onComplete) onComplete();
+        return;
+    }
+    const steps = 20;
+    const stepTime = duration / steps;
+    let currentStep = 0;
+    ostFadeInterval = setInterval(() => {
+        currentStep += 1;
+        const progress = currentStep / steps;
+        ostAudio.volume = startVolume + volumeDiff * progress;
+        if (currentStep >= steps) {
+            clearOstFade();
+            ostAudio.volume = targetVolume;
+            if (onComplete) onComplete();
+        }
+    }, stepTime);
+}
+
+// Avvia la musica
+if (ostAudio) {
+    ostAudio.loop = true;
+    ostAudio.volume = OST_BASE_VOLUME;
+    const playPromise = ostAudio.play();
+    if (playPromise) {
+        playPromise.then(() => setMusicToggleState(true)).catch(() => setMusicToggleState(false));
+    } else {
+        setMusicToggleState(!ostAudio.paused);
+    }
+} else {
+    setMusicToggleState(false);
+}
+
+// Toggle della musica
+if (musicToggleButton && ostAudio) {
+    setMusicToggleState(!ostAudio.paused);
+    musicToggleButton.addEventListener('click', function() {
+        clearOstFade();
+        if (ostAudio.paused) {
+            userPausedMusic = false;
+            ostAudio.volume = OST_BASE_VOLUME;
+            ostAudio.play().then(() => setMusicToggleState(true)).catch(() => setMusicToggleState(false));
+        } else {
+            userPausedMusic = true;
+            ostAudio.pause();
+            setMusicToggleState(false);
+        }
+    });
+}
+
 function toggleImages() {
     const image1 = document.getElementById('hellomama-image');
     const image2 = document.getElementById('hellomama-image2');

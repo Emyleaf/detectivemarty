@@ -95,6 +95,12 @@ window.addEventListener('load', function() {
 
     function playEndingMusicTransition() {
         if (endingAudio) return; // already transitioned
+        // Ferma incrimina.mp3 quando parte ending.mp3
+        const incriminaAudio = document.getElementById('incrimina-audio');
+        if (incriminaAudio) {
+            incriminaAudio.pause();
+            incriminaAudio.currentTime = 0;
+        }
         pauseOstWithFade(() => {
             try {
                 endingAudio = new Audio('./audio/ending.mp3');
@@ -358,6 +364,22 @@ window.addEventListener('load', function() {
             const contentWrapper = document.getElementById('content-wrapper');
             const incriminaContainer = document.getElementById('incrimina-container');
             
+            // Ferma l'ost e tutti gli mp3 in esecuzione e fai partire incrimina.mp3
+            if (ostAudio) {
+                ostAudio.pause();
+            }
+            // Ferma gli audio dei personaggi se in esecuzione
+            const characterAudios = document.querySelectorAll('audio[id^="modal-character-movente"]');
+            characterAudios.forEach(audio => audio.pause());
+            
+            // Avvia incrimina.mp3 con volume dimezzato
+            const incriminaAudio = document.getElementById('incrimina-audio');
+            if (incriminaAudio) {
+                incriminaAudio.currentTime = 0;
+                incriminaAudio.volume = 0.3; // Metà del volume (OST_BASE_VOLUME = 0.3)
+                incriminaAudio.play().catch(() => {/* ignore autoplay errors */});
+            }
+            
             // Nascondi logo e content-wrapper
             if (logoContainer) {
                 logoContainer.classList.add('transition-out');
@@ -483,7 +505,7 @@ window.addEventListener('load', function() {
                             width: 700,
                             background: '',
                             html: `<div style="max-height: 40vh; overflow-y: auto; text-align: left; padding-right: .5rem;">
-                                Il detective Marty li osservò a lungo, uno accanto all'altra. Silenziosi. Stanchi. Uniti da qualcosa che andava oltre la paura.<br><br> Questa volta non ci furono eccezioni.<br><br> Le indagini avevano parlato chiaro: l'omicidio di Franco da Vinci non era stato il gesto isolato di un uomo innamorato, ma il risultato di una decisione condivisa. Ogni dettaglio, ogni coincidenza, ogni silenzio conduceva sempre allo stesso punto: avevano pianificato tutto insieme.<br><br> Franco era un uomo difficile da compiangere. Presuntuoso, violento nei modi, corrotto dal denaro. L'arte, per lui, era solo un mezzo. Aveva affari loschi con chissà quale organizzazione. Il Bacio, il quadro all'asta quella sera, rappresentava tutto ciò che disprezzava… e tutto ciò che Marie amava. La distruzione imminente dell'opera era stata la scintilla.<br><br> Marie, discendente di Schiele, non sopportava l'idea che quell'opera venisse distrutta. Giotto, che l'amava da anni, aveva scelto di seguirla. Quel viaggio a Vienna li aveva uniti; quella sala d'aste li aveva condannati.<br><br> Il piano era semplice: far cadere apposta il piatto di crostacei; mettere una sostanza allergizzante sugli opuscoli; contare sulla certezza che Franco, nervoso come sempre, si sarebbe mangiato le unghie; usare il coltello, infine, non per uccidere ma per depistare.<br><br> Quando Franco crollò a terra, il destino era già segnato.<br><br> Giotto venne arrestato per omicidio colposo aggravato; Marie per concorso in omicidio e depistaggio. Nessuno dei due oppose resistenza. Si scambiarono solo uno sguardo, breve ma intenso.<br><br> Il Bacio venne sequestrato e affidato al museo di Anna Monet, la quale rincuorò i ragazzi assicurando che l'opera sarebbe stata per sempre in buone mani. Sopravvisse a Franco, ai tribunali e allo scandalo.<br><br> Giotto e Marie si persero fra sentenze, celle e amore. Rimasero in carcere a lungo, ma questo non li allontanò di un centimetro. Anche se in celle separate, anche se in stanze distanti, sapevano di aver fatto la cosa giusta e che il loro amore avrebbe prevalso su ogni forma di giustizia. <br><br> Alcuni anni dopo, Sofia pubblicò un libro riguardo questa storia e diede così inizio al suo percorso da scrittrice con: 'Not even the gods above'.
+                                Il detective Marty li osservò a lungo, uno accanto all'altra. Silenziosi. Stanchi. Uniti da qualcosa che andava oltre la paura.<br><br> Questa volta non ci furono eccezioni.<br><br> Le indagini avevano parlato chiaro: l'omicidio di Franco da Vinci non era stato il gesto isolato di un uomo innamorato, ma il risultato di una decisione condivisa. Ogni dettaglio, ogni coincidenza, ogni silenzio conduceva sempre allo stesso punto: avevano pianificato tutto insieme.<br><br> Franco era un uomo difficile da compiangere. Presuntuoso, violento nei modi, corrotto dal denaro. L'arte, per lui, era solo un mezzo. Aveva affari loschi con chissà quale organizzazione. Il Bacio, il quadro all'asta quella sera, rappresentava tutto ciò che disprezzava… e tutto ciò che Marie amava. La distruzione imminente dell'opera era stata la scintilla.<br><br> Marie, discendente di Schiele, non sopportava l'idea che quell'opera venisse distrutta. Giotto, che l'amava da anni, aveva scelto di seguirla. Quel viaggio a Vienna li aveva uniti; quella sala d'aste li aveva condannati.<br><br> Il piano era semplice: far cadere apposta il piatto di crostacei, cospargere gli opuscoli di cibo allergizzante per Franco e contare sulla certezza che, nervoso come sempre, si sarebbe mangiato le unghie; usare il coltello, infine, non per uccidere ma per depistare.<br><br> Quando Franco crollò a terra, il destino era già segnato.<br><br> Giotto venne arrestato per omicidio colposo aggravato; Marie per concorso in omicidio e depistaggio. Nessuno dei due oppose resistenza. Si scambiarono solo uno sguardo, breve ma intenso.<br><br> Il Bacio venne sequestrato e affidato al museo di Anna Monet, la quale rincuorò i ragazzi assicurando che l'opera sarebbe stata per sempre in buone mani. Sopravvisse a Franco, ai tribunali e allo scandalo.<br><br> Giotto e Marie si persero fra sentenze, celle e amore. Rimasero in carcere a lungo, ma questo non li allontanò di un centimetro. Anche se in celle separate, anche se in stanze distanti, sapevano di aver fatto la cosa giusta e che il loro amore avrebbe prevalso su ogni forma di giustizia. <br><br> Alcuni anni dopo, Sofia pubblicò un libro riguardo questa storia e diede così inizio al suo percorso da scrittrice con: 'Not even the gods above'.
                             </div>`,
                             confirmButtonText: 'Fine'
                         }).then(() => {
@@ -510,6 +532,17 @@ window.addEventListener('load', function() {
             const contentWrapper = document.getElementById('content-wrapper');
             const portamoduliContainer = document.getElementById('portamoduli-container');
             const incriminaContainer = document.getElementById('incrimina-container');
+            
+            // Ferma incrimina.mp3 e riavvia ost.mp3
+            const incriminaAudio = document.getElementById('incrimina-audio');
+            if (incriminaAudio) {
+                incriminaAudio.pause();
+                incriminaAudio.currentTime = 0;
+            }
+            if (ostAudio && userPausedMusic === false) {
+                ostAudio.currentTime = 0;
+                ostAudio.play().catch(() => {/* ignore autoplay errors */});
+            }
             
             // Nascondi portamoduli o incrimina con animazione inversa
             if (!portamoduliContainer.classList.contains('hidden')) {
@@ -597,6 +630,10 @@ window.addEventListener('load', function() {
                 {
                     keywords: ["allerg", "cetiriz"],
                     response: "La Cetirizina? Mi serve per la mia allergia alle arachidi. La cucina di James è americana, anche se mi ha assicurato di essere stato molto attento, non si sa mai."
+                },
+                {
+                    keywords: ["bors"],
+                    response: "Lei è proprio una ciacciona, detective! Nella mia borsa c'è di tutto, ma non un'arma! Non so proprio come possa venire in mente a qualcuno che potrei nascondere un coltello lì dentro!"
                 }
             ]
         },
@@ -639,6 +676,10 @@ window.addEventListener('load', function() {
                 {
                     keywords: ["franco"],
                     response: "Franco è stato molto scortese con tutti, era proprio un boomer! Non capiva nulla di social e di arte, mi faceva arrabbiare solo a sentirlo parlare!"
+                },
+                {
+                    keywords: ["bors"],
+                    response: "Borsa? Io non tengo borse, il mio Instagram è la mia borsa!"
                 }
             ]
         },
@@ -647,8 +688,8 @@ window.addEventListener('load', function() {
             movente: "./audio/giotto.mp3",
             answers: [
                 {
-                    keywords: ["luc", "marco", "munch"],
-                    response: "Sì, ho dato una mano al team di Marco per le luci. Purtroppo Marco ha detto che si era dimenticato le forbici da elettricista e non avevano modo di aggeggiare con i cavi."
+                    keywords: ["luc", "marco", "munch", "ripostigl"],
+                    response: "Mi sono recato nel ripostiglio per dare una mano al team di Marco per le luci. Purtroppo Marco ha detto che si era dimenticato le forbici da elettricista e non avevano modo di aggeggiare con i cavi, ma i guanti da battitore sono specializzati anche in questo. L'Accademia dei Battitori è avanti anni luce in tecnologia, anche se non si direbbe."
                 },
                 {
                     keywords: ["james", "dalì", "erasmus"],
@@ -684,6 +725,10 @@ window.addEventListener('load', function() {
                 {
                     keywords: ["franco"],
                     response: "Franco era un uomo molto difficile ed esigente. Alcune regole erano imposte da lui, anche se non era l'organizzatore principale. Era molto severo e si impuntava su ogni dettaglio, il che rendeva il lavoro di tutti molto difficile."
+                },
+                {
+                    keywords: ["timer", "orologio"],
+                    response: "Il timer? Ti riferisci a quello nel ripostiglio? Certo, è un timer che usiamo per la fine dell'asta. Una volta finita l'asta, alle 22:30, il timer scatta, le luci si accendono e spengono per tre volte per indicare la fine dell'asta. È semplicemente un effetto scenico, ma stasera ha avuto un malfunzionamento."
                 }
             ]
         },
@@ -692,8 +737,8 @@ window.addEventListener('load', function() {
             movente: "./audio/james.mp3",
             answers: [
                 {
-                    keywords: ["libro", "ricett"],
-                    response: "Ho usato un libro di ricette di John Brownie per stasera, mi ha ispirato per il menu! Sapevi che i crostacei hanno un sistema circolatorio aperto con emolinfa, un mix di acqua e mioglobina, che viene eliminata durante la lavorazione? <i>Thank you, John!</i>, non sono un esperto come lui ma spero di aver fatto un buon lavoro!"
+                    keywords: ["libro", "ricett", "john", "brown"],
+                    response: "Ho usato un libro di ricette di John Brownie per stasera, mi ha ispirato per il menu! Sapevi che i crostacei hanno un sistema circolatorio aperto con emolinfa, un mix di acqua e mioglobina, che solo i più grandi chef riescono a rimuovere completamente durante la lavorazione? <i>Thank you, John!</i>, non sono un esperto come lui ma spero di aver fatto un buon lavoro!"
                 },
                 {
                     keywords: ["giotto"],
@@ -705,7 +750,7 @@ window.addEventListener('load', function() {
                 },
                 {
                     keywords: ["coltell", "arma"],
-                    response: "Aaaah <i>my friend</i>, <i>I'm so so so sorry</i>, purtroppo è uno dei coltelli della cucina l'arma del delitto, non sono stato attento, ho fallito con la mia carriera, <i>I should be a homeless aaargggh!!!</i>"
+                    response: "Aaaah <i>my friend</i>, <i>I'm so so so sorry</i>! Stasera sono stato veramente disattento e ho perso uno dei miei coltelli, ma fortunatamente ne tengo sempre uno di riserva nella mia borsa e ho usato quello per preparare il piatto principale! Aaaaah <i>what a fool!</i> Ho fallito con la mia carriera, <i>I should be a homeless aaargggh!!!</i>"
                 },
                 {
                     keywords: ["foto", "padre"],
@@ -738,6 +783,14 @@ window.addEventListener('load', function() {
                 {
                     keywords: ["franco"],
                     response: "Franco mi guardava con disprezzo, come se fossi un <i>loser</i>. Non ho mai avuto rancore per lui, gli ho offerto il miglior buffet possibile, ma lui non era mai soddisfatto."
+                },
+                {
+                    keywords: ["bors"],
+                    response: "<i>Do you like it?</i> La porto sempre con me, ci tengo il mio libro di ricette della serata, un paio di ricambio nel caso mi sporcassi e il mio amato coltello portafortuna del mio <i>dad</i>!"
+                },
+                {
+                    keywords: ["cucina"],
+                    response: "La cucina è off limits! Non è permesso entrare in cucina, solo io e il mio staff possiamo accedervi, per motivi di sicurezza e igiene."
                 }
             ]
         },
@@ -784,6 +837,14 @@ window.addEventListener('load', function() {
                 {
                     keywords: ["franco"],
                     response: "Franco? Qualcuno doveva fermarlo. Era un uomo crudele, arrogante e prepotente. Ha rovinato la vita di molte persone, me compreso. Non mi sorprende che qualcuno l'abbia ucciso."
+                },
+                {
+                    keywords: ["ripostigl"],
+                    response: "Il ripostiglio? Non ci sono mai entrato. Non so cosa ci sia dentro."
+                },
+                {
+                    keywords: ["telefono", "cellulare", "conversazion", "phone", "piano"],
+                    response: "Detective, sono conversazioni private. Non posso condividere con lei quello che mi ha detto Franco, è una questione di rispetto e privacy. Posso solo dirle che non era niente di serio, era solo una strategia d'asta, ma non posso entrare nei dettagli. In ogni caso non è rilevante per l'indagine, lasciamo perdere questa conversazione, non dirò nulla senza il mio avvocato."
                 }
             ]
         },
@@ -822,6 +883,19 @@ window.addEventListener('load', function() {
                 {
                     keywords: ["franco"],
                     response: "Franco era mio marito. Mi controllava continuamente, come se non si fidasse di me. Mi umiliava in pubblico, soprattutto quando era ubriaco, però mi sono sempre sentita legata a lui, nonostante tutto. Non meritava di morire così. Trovate il colpevole, per favore."
+                },
+                {
+                    keywords: ["bors"],
+                    response: "Nella mia borsa tengo solo l'essenziale, mi piace viaggiare leggera e non portare troppe cose pesanti con me."
+                },
+                {
+                    keywords: ["schiele"],
+                    response: "Dopo essermi sposata con Franco ho preso il suo cognome. Schiele è il mio cognome di nascita."
+                },
+                {
+                    keywords: ["telefono", "cellulare", "conversazion", "phone"],
+                    response: "Franco era molto oppressivo, mi controllava continuamente, anche il telefono. Non mi permetteva di avere conversazioni private, soprattutto con uomini, ma anche con donne. A volte allucinava che stessi parlando con altre persone, anche se non era così..."
+
                 }
             ]
         },
@@ -854,12 +928,20 @@ window.addEventListener('load', function() {
                     response: "Marie è sempre stata al fianco di Franco, nonostante tutto. Non so come faceva a sopportarlo, è sempre stato un uomo molto difficile. A volte mi chiedo come facesse a stare con lui."
                 },
                 {
+                    keywords: ["telefono", "cellulare", "conversazion", "phone"],
+                    response: "Ho avuto una conversazione con Franco ieri sera, è vero. Mi ha minacciato di rovinarmi l'asta ancora una volta se non avessi fatto quello che chiedeva... ma non è stato niente di serio, alla fine mi ha chiesto solo di presentare le opere nell'ordine che voleva lui, ma non è una cosa così grave, no?"
+                },
+                {
                     keywords: ["franco"],
                     response: "Franco è sempre stato molto importante per queste aste, portava molta reach, ma era un uomo impossibile da gestire. Mi metteva sotto pressione costantemente, voleva che fosse tutto come diceva lui, altrimenti se ne sarebbe andato. Era un incubo lavorare con lui, mi sentivo ricattato ogni volta."
                 },
                 {
                     keywords: ["sofia", "caravaggio"],
                     response: "Franco mi aveva avvertito di non farla avvicinare troppo, diceva che era una 'pazza', ma non mi è sembrata pazza per niente, forse un po' goffa perché continuava a voler scattare foto nonostante fosse vietato, ma in realtà è solo una regola che Franco ha imposto, a nessuno interessa realmente."
+                },
+                {
+                    keywords: ["bors"],
+                    response: "Il mio borsone chic? Ci tengo tutto l'occorrente per le aste, non voglio farmi trovare impreparato, bisogna sempre andare in onda con tutto il necessario, non si sa mai cosa possa succedere!"
                 }
             ]
         },
@@ -876,7 +958,7 @@ window.addEventListener('load', function() {
                     response: "Non ricordo cosa avesse fatto cascare Marie, ricordo solo che Franco era molto arrabbiato, quasi come se avesse ammazzato qualcuno! Ops, scusate il brutto gioco di parole…"
                 },
                 {
-                    keywords: ["fals", "fotograf", "notiz", "giornal"],
+                    keywords: ["fals", "fotograf", "notiz", "giornal", "stagn", "ninfe"],
                     response: "Te ne sei accorta vero? Sei proprio una grande detective. Sì, ero una ex-giornalista che lavorava su un caso di opere false e opere scomparse, ma Franco, che si è offerto volontario per l'intervista, mi ha umiliato in diretta, facendomi passare per una pazza, e per questo ho perso il lavoro."
                 },
                 {
@@ -906,6 +988,10 @@ window.addEventListener('load', function() {
                 {
                     keywords: ["franco"],
                     response: "Ero una giornalista che stava indagando su un giro di opere d'arte false e scomparse, e lui si è offerto volontario per un'intervista. Durante l'intervista mi ha umiliato in diretta, facendomi passare per una pazza. Ho perso il lavoro e la reputazione a causa sua. Non posso dire che mi dispiace per la sua morte, ma non sono stata io a farlo."
+                },
+                {
+                    keywords: ["bors"],
+                    response: "La mia borsa? È una borsa a tracolla molto capiente, ci tengo dentro la macchina fotografica, documenti e nient'altro di importante."
                 }
             ]
         }
@@ -1223,7 +1309,7 @@ window.addEventListener('load', function() {
         notebookButton.addEventListener('click', function() {
             Swal.fire({
                 title: 'Cosa sai?',
-                html: '<div style="background: linear-gradient(transparent, transparent calc(1.5em - 1px), #d4d4d4 calc(1.5em - 1px), #d4d4d4 1.5em); background-size: 100% 1.5em; line-height: 1.5em; padding: 0.5em 1em; text-align: left; font-family: \'IM Fell DW Pica\', serif;">Tu e Gallo siete arrivati alle 19:20 per l\'inizio del buffet alle 19:30. Durante il buffet non avete notato niente di strano e avete mangiato mangiato e ancora mangiato. Dopo 30 min siete stati accompagnati fuori dalla stanza dove avete aspettato per più di 2 ore, nell\'eventualità succedesse qualcosa.<br> E purtroppo, è successo qualcosa.<br><br> Trova il colpevole, prima che possa farla franca!</div>',
+                html: '<div style="background: linear-gradient(transparent, transparent calc(1.5em - 1px), #d4d4d4 calc(1.5em - 1px), #d4d4d4 1.5em); background-size: 100% 1.5em; line-height: 1.5em; padding: 0.5em 1em; text-align: left; font-family: \'IM Fell DW Pica\', serif;">Tu e Gallo siete arrivati alle 19:20, per il buffet che iniziava alle 19:30. Durante il buffet non avete notato niente di strano e avete mangiato, mangiato e ancora mangiato. Dopo 30 min siete stati accompagnati fuori dalla stanza, dove avete aspettato per più di due ore, nell\'eventualità succedesse qualcosa durante l\'asta.<br> E purtroppo, è successo qualcosa.<br><br> Trova il colpevole, prima che possa farla franca, una volta arrivata la polizia sarà già troppo tardi!</div>',
                 imageUrl: './img/mmm.png',
                 imageWidth: 150,
                 imageAlt: 'Notebook icon',
