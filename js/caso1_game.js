@@ -195,11 +195,12 @@ window.addEventListener('load', function() {
         "Mi piace lavorare con te, Marty. Sei davvero in gamba!",
         "Sai, ho sentito che il buffet qui è famoso in tutta la città, per questo ho pensato a te!",
         "Sembra un caso molto difficile, qui servono tutte le tue abilità da detective.",
+        "Ehi Marty, hai visto i reel che ti ho mandato su Instagram? Mi divertono molto quelli con i cani che ballano! Ahahah!",
     ];
 
     const newsAndGossipPhrases = [
         "Ho sentito dire che Franco era molto temuto nel mondo dell'arte... bah, ci capisco poco io.",
-        "Ho letto stamani di un ladro di opere d'arte che è stato catturato. Chissà se c'entra qualcosa con questo caso.",
+        "Ho letto stamani su Instagram di un ladro di opere d'arte che è stato catturato. Chissà se c'entra qualcosa con questo caso.",
         "Sai che alcuni sospettati avevano dei conti in sospeso con la vittima?",
         "Mi hanno detto che durante il buffet è successo qualcosa di strano...",
         "Pare che qualcuno si sia assentato durante la pausa...",
